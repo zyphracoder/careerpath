@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>भारतीय Skill & Career Finder</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Tiro+Devanagari+Hindi:ital@0;1&family=Source+Code+Pro:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#fffbf5;--surface:#fff8ef;--card:#ffffff;--border:#e8d9c0;--border2:#f0e4cc;
+  --ink:#1c1207;--muted:#8a7560;--saffron:#f97316;--saffron-light:#fff3e8;
+  --green:#16a34a;--green-light:#f0fdf4;--navy:#1e3a6e;--navy-light:#eff4ff;
+  --chakra:#0ea5e9;--red:#dc2626;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--saffron) 33.3%,#fff 33.3% 66.6%,var(--green) 66.6%);z-index:100;}
+body::after{content:'';position:fixed;inset:0;background-image:radial-gradient(circle at 15% 20%,rgba(249,115,22,0.06) 0%,transparent 45%),radial-gradient(circle at 85% 70%,rgba(22,163,74,0.05) 0%,transparent 45%),radial-gradient(circle at 50% 50%,rgba(14,165,233,0.04) 0%,transparent 60%);pointer-events:none;z-index:0;}
+header{position:relative;z-index:2;padding:3.5rem 1.5rem 2rem;text-align:center;max-width:750px;margin:0 auto;}
+.flag-badge{display:inline-flex;align-items:center;gap:0.6rem;background:var(--card);border:1px solid var(--border);border-radius:999px;padding:0.4rem 1.2rem;margin-bottom:1.8rem;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+.flag-emoji{font-size:1.1rem;}
+.flag-text{font-family:'Source Code Pro',monospace;font-size:0.68rem;letter-spacing:0.12em;color:var(--muted);text-transform:uppercase;}
+h1{font-size:clamp(2.4rem,6vw,4rem);font-weight:900;line-height:1.05;letter-spacing:-0.025em;margin-bottom:0.6rem;color:var(--ink);}
+h1 .hindi{font-family:'Tiro Devanagari Hindi',serif;font-style:italic;color:var(--saffron);display:block;font-size:0.75em;letter-spacing:0.01em;}
+.tagline{font-family:'Source Code Pro',monospace;font-size:0.73rem;color:var(--muted);letter-spacing:0.08em;margin-bottom:0.5rem;}
+.boards-row{display:flex;justify-content:center;flex-wrap:wrap;gap:0.4rem;margin-top:1.2rem;}
+.board-tag{font-family:'Source Code Pro',monospace;font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.2rem 0.7rem;border-radius:4px;background:var(--surface);border:1px solid var(--border);color:var(--muted);}
+.form-wrap{position:relative;z-index:2;max-width:700px;margin:0 auto;padding:0 1.5rem 2.5rem;}
+.form-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2rem 2rem 1.5rem;box-shadow:0 4px 32px rgba(0,0,0,0.07),0 0 0 1px rgba(249,115,22,0.05);}
+.form-section-title{font-family:'Source Code Pro',monospace;font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--saffron);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border2);}
+.field-row{margin-bottom:1.3rem;}
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.3rem;}
+label{display:block;font-weight:700;font-size:0.78rem;color:var(--ink);margin-bottom:0.45rem;}
+label .hint{font-weight:400;color:var(--muted);font-size:0.68rem;margin-left:0.3rem;}
+select,input[type=text]{width:100%;background:var(--surface);border:1.5px solid var(--border);border-radius:10px;padding:0.7rem 0.9rem;font-family:'Nunito',sans-serif;font-size:0.9rem;color:var(--ink);outline:none;transition:border-color .2s,box-shadow .2s;appearance:none;-webkit-appearance:none;}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a7560' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.9rem center;padding-right:2.2rem;cursor:pointer;}
+select:focus,input:focus{border-color:var(--saffron);box-shadow:0 0 0 3px rgba(249,115,22,0.12);}
+select option{background:#fff7ee;}
+.interest-wrap{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:0.5rem;}
+.int-item{position:relative;}
+.int-item input[type=checkbox]{position:absolute;opacity:0;width:0;height:0;}
+.int-item label{display:flex;align-items:center;gap:0.5rem;background:var(--surface);border:1.5px solid var(--border);border-radius:8px;padding:0.55rem 0.8rem;cursor:pointer;font-size:0.78rem;font-weight:700;color:var(--muted);transition:all .15s ease;white-space:nowrap;}
+.int-item input:checked+label{background:var(--navy-light);border-color:var(--navy);color:var(--navy);}
+.int-item label:hover{border-color:var(--border);color:var(--ink);}
+.goal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;margin-bottom:1.3rem;}
+.goal-btn{background:var(--surface);border:1.5px solid var(--border);border-radius:8px;padding:0.5rem 0.4rem;text-align:center;cursor:pointer;font-size:0.72rem;font-weight:700;color:var(--muted);transition:all .15s ease;}
+.goal-btn:hover{border-color:var(--green);color:var(--green);}
+.goal-btn.selected{background:var(--green-light);border-color:var(--green);color:var(--green);}
+.goal-goal{font-size:0.9rem;margin-bottom:0.2rem;}
+.submit-btn{width:100%;background:linear-gradient(135deg,var(--saffron) 0%,#ea580c 100%);border:none;border-radius:12px;padding:1rem 1.5rem;font-family:'Nunito',sans-serif;font-weight:900;font-size:1.05rem;color:#fff;cursor:pointer;margin-top:0.5rem;transition:all .2s ease;display:flex;align-items:center;justify-content:center;gap:0.6rem;letter-spacing:-0.01em;box-shadow:0 4px 16px rgba(249,115,22,0.3);}
+.submit-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 24px rgba(249,115,22,0.35);}
+.submit-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none;}
+.form-divider{border:none;border-top:1px solid var(--border2);margin:1.5rem 0 1.3rem;}
+#loading{display:none;position:relative;z-index:2;text-align:center;padding:4rem 1.5rem;}
+.chakra-loader{width:52px;height:52px;border:3px solid var(--border);border-top-color:var(--chakra);border-radius:50%;animation:spin .9s linear infinite;margin:0 auto 1.2rem;position:relative;}
+.chakra-loader::after{content:'⊙';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:0.85rem;color:var(--chakra);}
+@keyframes spin{to{transform:rotate(360deg)}}
+.load-title{font-size:1rem;font-weight:800;margin-bottom:0.4rem;}
+.load-sub{font-family:'Source Code Pro',monospace;font-size:0.7rem;color:var(--muted);letter-spacing:0.08em;}
+.load-step{margin-top:0.6rem;font-family:'Source Code Pro',monospace;font-size:0.68rem;color:var(--saffron);min-height:1.2rem;}
+#results{display:none;position:relative;z-index:2;max-width:860px;margin:0 auto;padding:0 1.5rem 5rem;}
+.profile-strip{background:linear-gradient(135deg,var(--navy) 0%,#1e3a8a 100%);border-radius:16px;padding:1.5rem 2rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;box-shadow:0 4px 24px rgba(30,58,110,0.2);}
+.p-avatar{width:52px;height:52px;border-radius:14px;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;}
+.p-name{font-size:1.05rem;font-weight:900;color:#fff;margin-bottom:0.3rem;}
+.p-chips{display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:0.3rem;}
+.p-chip{font-family:'Source Code Pro',monospace;font-size:0.58rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.18rem 0.55rem;border-radius:4px;background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.15);}
+.p-back{margin-left:auto;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:0.45rem 1rem;font-family:'Nunito',sans-serif;font-weight:700;font-size:0.78rem;color:rgba(255,255,255,0.8);cursor:pointer;transition:all .2s;}
+.p-back:hover{background:rgba(255,255,255,0.18);color:#fff;}
+.rc{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:1.2rem;box-shadow:0 2px 12px rgba(0,0,0,0.04);}
+.rc-head{padding:1.1rem 1.5rem;border-bottom:1px solid var(--border2);display:flex;align-items:center;gap:0.8rem;}
+.rc-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.saffron-bg{background:rgba(249,115,22,0.12);}
+.green-bg{background:rgba(22,163,74,0.1);}
+.navy-bg{background:rgba(30,58,110,0.1);}
+.chakra-bg{background:rgba(14,165,233,0.1);}
+.gold-bg{background:rgba(202,138,4,0.1);}
+.rc-title{font-size:0.98rem;font-weight:900;letter-spacing:-0.01em;}
+.rc-sub{font-family:'Source Code Pro',monospace;font-size:0.6rem;color:var(--muted);margin-top:0.1rem;letter-spacing:0.06em;}
+.rc-body{padding:1.5rem;font-size:0.88rem;line-height:1.75;color:#3d3020;}
+.rc-body h4{font-size:0.88rem;font-weight:800;color:var(--navy);margin:.9rem 0 .35rem;}
+.rc-body ul{padding-left:1.3rem;margin:.3rem 0 .7rem;}
+.rc-body ol{padding-left:1.3rem;margin:.3rem 0 .7rem;}
+.rc-body li{margin-bottom:.35rem;}
+.rc-body strong{color:var(--ink);font-weight:800;}
+.rc-body em{color:var(--saffron);font-style:normal;font-weight:600;}
+.rc-body p{margin-bottom:.6rem;}
+.rc-body p:last-child{margin-bottom:0;}
+.inr{display:inline-block;background:var(--green-light);border:1px solid rgba(22,163,74,0.2);border-radius:4px;padding:0.1rem 0.45rem;font-family:'Source Code Pro',monospace;font-size:0.72rem;color:var(--green);font-weight:500;}
+.exam-pill{display:inline-block;background:var(--navy-light);border:1px solid rgba(30,58,110,0.2);border-radius:4px;padding:0.1rem 0.45rem;font-family:'Source Code Pro',monospace;font-size:0.68rem;color:var(--navy);margin:0 0.1rem;}
+
+/* ── DETAILED CAREER ROADMAP SECTION ── */
+.drm-career-block{
+  border:1.5px solid var(--border);border-radius:14px;
+  overflow:hidden;margin-bottom:1.4rem;
+  box-shadow:0 2px 10px rgba(0,0,0,0.04);
+}
+.drm-career-header{
+  display:flex;align-items:center;gap:0.8rem;
+  padding:1rem 1.3rem;cursor:pointer;
+  background:var(--surface);
+  border-bottom:1.5px solid transparent;
+  transition:background .18s;
+  user-select:none;
+}
+.drm-career-header:hover{background:#fef3e8;}
+.drm-career-header.open{background:linear-gradient(90deg,#fff8ef,#fff);border-bottom-color:var(--border2);}
+.drm-career-emoji{font-size:1.35rem;flex-shrink:0;}
+.drm-career-name{flex:1;}
+.drm-career-name strong{font-size:0.9rem;font-weight:900;color:var(--ink);display:block;}
+.drm-career-name span{font-family:'Source Code Pro',monospace;font-size:0.58rem;color:var(--muted);letter-spacing:0.06em;}
+.drm-chevron{width:18px;height:18px;flex-shrink:0;transition:transform .25s;color:var(--muted);}
+.drm-career-header.open .drm-chevron{transform:rotate(180deg);}
+.drm-career-body{display:none;padding:0;}
+.drm-career-body.open{display:block;}
+
+/* Phase timeline inside each career */
+.drm-phases{padding:1.2rem 1.3rem 0.6rem;}
+.drm-phase{display:flex;gap:0.9rem;margin-bottom:1.1rem;position:relative;}
+.drm-phase:not(:last-child)::before{
+  content:'';position:absolute;left:15px;top:32px;bottom:-1.1rem;
+  width:2px;background:linear-gradient(to bottom,var(--saffron),var(--border));
+}
+.drm-phase-dot{
+  flex-shrink:0;width:32px;height:32px;border-radius:50%;
+  background:linear-gradient(135deg,var(--saffron),#ea580c);
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.7rem;font-weight:900;color:#fff;
+  box-shadow:0 2px 8px rgba(249,115,22,0.3);
+  position:relative;z-index:1;
+}
+.drm-phase-dot.green{background:linear-gradient(135deg,var(--green),#15803d);box-shadow:0 2px 8px rgba(22,163,74,0.3);}
+.drm-phase-dot.navy{background:linear-gradient(135deg,var(--navy),#1e40af);box-shadow:0 2px 8px rgba(30,58,110,0.3);}
+.drm-phase-dot.chakra{background:linear-gradient(135deg,var(--chakra),#0284c7);box-shadow:0 2px 8px rgba(14,165,233,0.3);}
+.drm-phase-dot.gold{background:linear-gradient(135deg,#ca8a04,#a16207);box-shadow:0 2px 8px rgba(202,138,4,0.3);}
+.drm-phase-content{flex:1;padding-bottom:0.4rem;}
+.drm-phase-title{font-size:0.82rem;font-weight:900;color:var(--ink);margin-bottom:0.25rem;}
+.drm-phase-dur{font-family:'Source Code Pro',monospace;font-size:0.58rem;color:var(--saffron);letter-spacing:0.06em;margin-bottom:0.35rem;}
+.drm-phase-items{list-style:none;padding:0;margin:0;}
+.drm-phase-items li{
+  font-size:0.8rem;color:#4a3c28;line-height:1.55;
+  padding:0.2rem 0 0.2rem 1.1rem;position:relative;
+}
+.drm-phase-items li::before{content:'→';position:absolute;left:0;color:var(--saffron);font-size:0.7rem;top:0.22rem;}
+
+/* skill chips inside roadmap */
+.drm-skill-chips{display:flex;flex-wrap:wrap;gap:0.3rem;margin-top:0.4rem;}
+.drm-chip{
+  font-family:'Source Code Pro',monospace;font-size:0.58rem;
+  padding:0.18rem 0.5rem;border-radius:4px;
+  background:var(--navy-light);border:1px solid rgba(30,58,110,0.15);
+  color:var(--navy);
+}
+.drm-chip.green{background:var(--green-light);border-color:rgba(22,163,74,0.2);color:var(--green);}
+.drm-chip.orange{background:var(--saffron-light);border-color:rgba(249,115,22,0.2);color:#c2410c;}
+
+/* resources bar */
+.drm-resources{
+  background:var(--surface);border-top:1px solid var(--border2);
+  padding:0.8rem 1.3rem;display:flex;flex-wrap:wrap;gap:0.5rem;align-items:center;
+}
+.drm-res-label{font-family:'Source Code Pro',monospace;font-size:0.6rem;color:var(--muted);letter-spacing:0.08em;margin-right:0.3rem;white-space:nowrap;}
+.drm-res-chip{
+  font-size:0.72rem;font-weight:700;color:var(--navy);
+  background:var(--card);border:1px solid var(--border);border-radius:6px;
+  padding:0.22rem 0.65rem;white-space:nowrap;
+}
+
+@media(max-width:560px){
+  .field-grid{grid-template-columns:1fr;}
+  .interest-wrap{grid-template-columns:repeat(2,1fr);}
+  .goal-grid{grid-template-columns:repeat(2,1fr);}
+  .profile-strip{flex-direction:column;align-items:flex-start;}
+  .p-back{margin-left:0;}
+}
+
+/* ── ROADMAP.SH SECTION ── */
+.rms-wrap{
+  background:linear-gradient(135deg,#0f1f3d 0%,#0c1a35 50%,#091629 100%);
+  border-radius:16px;overflow:hidden;margin-bottom:1.2rem;
+  border:1px solid rgba(14,165,233,0.25);
+  box-shadow:0 4px 24px rgba(0,0,0,0.25);
+}
+.rms-header{
+  padding:1.4rem 1.8rem 1rem;
+  border-bottom:1px solid rgba(255,255,255,0.07);
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+}
+.rms-header-left{display:flex;align-items:center;gap:0.85rem;}
+.rms-logo-icon{
+  width:38px;height:38px;border-radius:10px;
+  background:linear-gradient(135deg,rgba(14,165,233,0.25),rgba(30,58,110,0.4));
+  border:1px solid rgba(14,165,233,0.3);
+  display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;
+}
+.rms-brand{font-size:0.98rem;font-weight:900;color:#fff;letter-spacing:-0.01em;}
+.rms-brand-sub{
+  font-family:'Source Code Pro',monospace;font-size:0.6rem;
+  color:rgba(14,165,233,0.7);letter-spacing:0.06em;margin-top:0.1rem;
+}
+.rms-visit-btn{
+  display:inline-flex;align-items:center;gap:0.4rem;
+  background:rgba(14,165,233,0.15);border:1px solid rgba(14,165,233,0.4);
+  border-radius:8px;padding:0.5rem 1.1rem;
+  font-family:'Source Code Pro',monospace;font-size:0.68rem;
+  color:rgba(14,165,233,0.9);font-weight:500;letter-spacing:0.05em;
+  text-decoration:none;transition:all .2s;white-space:nowrap;
+}
+.rms-visit-btn:hover{background:rgba(14,165,233,0.28);color:#7dd3fc;border-color:rgba(14,165,233,0.6);}
+.rms-tagline{
+  padding:0.8rem 1.8rem;
+  font-family:'Source Code Pro',monospace;font-size:0.62rem;
+  color:rgba(255,255,255,0.35);letter-spacing:0.05em;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+.rms-tagline span{color:rgba(14,165,233,0.5);margin:0 0.5rem;}
+.rms-intro{
+  padding:0.9rem 1.8rem 0.5rem;
+  font-size:0.8rem;color:rgba(255,255,255,0.6);line-height:1.65;
+}
+.rms-intro strong{color:rgba(255,255,255,0.85);}
+.rms-cards{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:0.75rem;padding:0.6rem 1.8rem 1.4rem;
+}
+.rms-card{
+  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);
+  border-radius:12px;padding:1rem 1.1rem 0.9rem;
+  cursor:pointer;text-decoration:none;display:block;
+  transition:all .2s ease;position:relative;overflow:hidden;
+}
+.rms-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(14,165,233,0.06),transparent);
+  opacity:0;transition:opacity .2s;
+}
+.rms-card:hover{
+  border-color:rgba(14,165,233,0.4);
+  background:rgba(255,255,255,0.07);
+  transform:translateY(-2px);
+  box-shadow:0 6px 20px rgba(0,0,0,0.3);
+}
+.rms-card:hover::before{opacity:1;}
+.rms-card-top{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.5rem;}
+.rms-card-icon{
+  width:30px;height:30px;border-radius:7px;
+  background:rgba(14,165,233,0.12);border:1px solid rgba(14,165,233,0.2);
+  display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;
+}
+.rms-card-name{font-size:0.82rem;font-weight:900;color:#fff;line-height:1.2;}
+.rms-card-type{
+  font-family:'Source Code Pro',monospace;font-size:0.55rem;
+  color:rgba(14,165,233,0.6);letter-spacing:0.06em;
+}
+.rms-card-desc{font-size:0.73rem;color:rgba(255,255,255,0.45);line-height:1.5;margin-bottom:0.55rem;}
+.rms-card-tag{
+  display:inline-block;font-family:'Source Code Pro',monospace;font-size:0.55rem;
+  padding:0.14rem 0.45rem;border-radius:4px;margin:0.1rem 0.1rem 0 0;
+  background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);
+  color:rgba(255,255,255,0.4);
+}
+.rms-card-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:0.5rem;padding-top:0.5rem;border-top:1px solid rgba(255,255,255,0.07);
+}
+.rms-open-link{
+  font-family:'Source Code Pro',monospace;font-size:0.6rem;
+  color:rgba(14,165,233,0.65);letter-spacing:0.04em;
+}
+.rms-ext-icon{font-size:0.75rem;color:rgba(14,165,233,0.4);}
+.rms-tip{
+  padding:0.75rem 1.8rem 1rem;
+  font-family:'Source Code Pro',monospace;font-size:0.62rem;
+  color:rgba(255,255,255,0.3);border-top:1px solid rgba(255,255,255,0.05);
+  line-height:1.55;
+}
+.rms-tip strong{color:rgba(14,165,233,0.55);}
+@media(max-width:560px){
+  .rms-cards{grid-template-columns:1fr;}
+  .rms-header{flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="flag-badge">
+    <span class="flag-emoji">🇮🇳</span>
+    <span class="flag-text">Indian Education System · Career Counsellor</span>
+  </div>
+  <h1>
+    <span class="hindi">करियर मार्गदर्शन</span>
+    Skill &amp; Career Finder
+  </h1>
+  <p class="tagline">// 100% personalised · based on your board, stream &amp; interests</p>
+  <div class="boards-row">
+    <span class="board-tag">CBSE</span><span class="board-tag">ICSE</span>
+    <span class="board-tag">State Board</span><span class="board-tag">PCM/PCB/PCMB</span>
+    <span class="board-tag">Commerce</span><span class="board-tag">Arts</span>
+    <span class="board-tag">Agriculture</span><span class="board-tag">Diploma</span>
+    <span class="board-tag">Degree</span><span class="board-tag">PG</span>
+  </div>
+</header>
+
+<div class="form-wrap" id="form-section">
+<div class="form-card">
+
+  <div class="form-section-title">01 — शिक्षा स्तर / Education Level</div>
+  <div class="field-grid">
+    <div>
+      <label>Board / System <span class="hint">(optional)</span></label>
+      <select id="board">
+        <option value="">Select board...</option>
+        <option>CBSE</option><option>ICSE / ISC</option>
+        <option>State Board (Maharashtra)</option><option>State Board (UP / UPMSP)</option>
+        <option>State Board (Rajasthan / RBSE)</option><option>State Board (MP / MPBSE)</option>
+        <option>State Board (Bihar / BSEB)</option><option>State Board (Tamil Nadu)</option>
+        <option>State Board (Karnataka)</option><option>State Board (Andhra/Telangana)</option>
+        <option>State Board (Gujarat)</option><option>State Board (Kerala)</option>
+        <option>State Board (West Bengal)</option><option>State Board (Other)</option>
+        <option>Open Board (NIOS)</option><option>IB / IGCSE</option>
+      </select>
+    </div>
+    <div>
+      <label>Current Education Level</label>
+      <select id="edu-level">
+        <option value="">Select level...</option>
+        <optgroup label="School">
+          <option value="8th">8th Class (Middle School)</option>
+          <option value="10th-studying">9th / 10th Class (Secondary)</option>
+          <option value="10th-pass">10th Pass (SSC / Matric)</option>
+        </optgroup>
+        <optgroup label="12th / Higher Secondary">
+          <option value="pcm">11th / 12th — PCM (Physics, Chemistry, Maths)</option>
+          <option value="pcb">11th / 12th — PCB (Physics, Chemistry, Biology)</option>
+          <option value="pcmb">11th / 12th — PCMB (Physics, Chemistry, Maths, Biology)</option>
+          <option value="commerce-maths">11th / 12th — Commerce with Maths</option>
+          <option value="commerce">11th / 12th — Commerce without Maths</option>
+          <option value="arts">11th / 12th — Arts / Humanities</option>
+          <option value="agriculture-12">11th / 12th — Agriculture</option>
+          <option value="home-science">11th / 12th — Home Science</option>
+          <option value="vocational">11th / 12th — Vocational Stream</option>
+          <option value="12th-pass">12th Pass (any stream)</option>
+        </optgroup>
+        <optgroup label="Diploma / Certificate / ITI">
+          <option value="iti">ITI Certificate (Electrician / Fitter / Mechanic etc.)</option>
+          <option value="polytechnic">Polytechnic Diploma — Engineering (3-year)</option>
+          <option value="dpharma">D.Pharma — Diploma in Pharmacy</option>
+          <option value="dca">DCA / PGDCA — Computer Applications</option>
+          <option value="deled">D.El.Ed / D.Ed — Teacher Training</option>
+          <option value="nursing-diploma">ANM / GNM — Nursing Diploma</option>
+          <option value="other-diploma">Other Diploma / Certificate</option>
+        </optgroup>
+        <optgroup label="Bachelor's Degree (UG)">
+          <option value="btech">B.Tech / B.E. — Engineering</option>
+          <option value="bsc">B.Sc — Science</option>
+          <option value="bsc-agri">B.Sc Agriculture / Horticulture / Forestry</option>
+          <option value="bsc-nursing">B.Sc Nursing</option>
+          <option value="mbbs">MBBS — Bachelor of Medicine</option>
+          <option value="bds">BDS — Bachelor of Dental Surgery</option>
+          <option value="bams">BAMS / BHMS (Ayurveda / Homeopathy)</option>
+          <option value="bpharm">B.Pharm — Bachelor of Pharmacy</option>
+          <option value="bvsc">BVSc — Veterinary Science</option>
+          <option value="bcom">B.Com — Bachelor of Commerce</option>
+          <option value="bba">BBA / BBM — Business Administration</option>
+          <option value="ca">CA — Chartered Accountancy</option>
+          <option value="ba">B.A. — Arts / Humanities / Social Sciences</option>
+          <option value="bca">BCA — Computer Applications</option>
+          <option value="btech-cs">B.Tech — Computer Science / IT</option>
+          <option value="barch">B.Arch — Architecture</option>
+          <option value="bdes">B.Des / NID / NIFT — Design / Fashion</option>
+          <option value="bped">BPEd — Physical Education / Sports</option>
+          <option value="bed">B.Ed — Bachelor of Education</option>
+          <option value="llb">LLB / BA LLB — Law</option>
+          <option value="bhm">BHM — Hotel Management</option>
+          <option value="bjmc">B.J. / BMM — Journalism &amp; Mass Communication</option>
+          <option value="bfa">BFA — Fine Arts / Visual Arts</option>
+          <option value="bsw">BSW — Social Work</option>
+        </optgroup>
+        <optgroup label="Postgraduate (PG)">
+          <option value="mtech">M.Tech / M.E. — Engineering PG</option>
+          <option value="msc">M.Sc — Science</option>
+          <option value="msc-agri">M.Sc Agriculture</option>
+          <option value="mba">MBA / PGDM — Business Management</option>
+          <option value="mcom">M.Com — Commerce PG</option>
+          <option value="ma">M.A. — Arts / Humanities</option>
+          <option value="mca">MCA — Computer Applications</option>
+          <option value="mtech-cs">M.Tech — Computer Science</option>
+          <option value="md-ms">MD / MS — Medical Postgraduate</option>
+          <option value="llm">LLM — Law PG</option>
+          <option value="med">M.Ed — Education PG</option>
+          <option value="mdes">M.Des — Design PG</option>
+          <option value="mfa">MFA — Fine Arts PG</option>
+          <option value="phd">PhD / Doctorate (any field)</option>
+        </optgroup>
+      </select>
+    </div>
+  </div>
+
+  <div class="field-row">
+    <label>Specialisation / Subject / Branch <span class="hint">(if applicable)</span></label>
+    <input type="text" id="specialisation" placeholder="e.g. Mechanical Engineering, Economics, Hindi Literature, Civil Engg…"/>
+  </div>
+
+  <hr class="form-divider"/>
+
+  <div class="form-section-title">02 — रुचि और ताकत / Interests &amp; Strengths</div>
+  <div class="field-row">
+    <label>Select all that apply <span class="hint">(at least one)</span></label>
+    <div class="interest-wrap">
+      <div class="int-item"><input type="checkbox" id="i1" value="coding"><label for="i1">💻 Coding &amp; Tech</label></div>
+      <div class="int-item"><input type="checkbox" id="i2" value="design"><label for="i2">🎨 Design &amp; Arts</label></div>
+      <div class="int-item"><input type="checkbox" id="i3" value="business"><label for="i3">💼 Business</label></div>
+      <div class="int-item"><input type="checkbox" id="i4" value="science"><label for="i4">🔬 Science &amp; Research</label></div>
+      <div class="int-item"><input type="checkbox" id="i5" value="healthcare"><label for="i5">🏥 Healthcare</label></div>
+      <div class="int-item"><input type="checkbox" id="i6" value="teaching"><label for="i6">📚 Teaching</label></div>
+      <div class="int-item"><input type="checkbox" id="i7" value="agriculture"><label for="i7">🌾 Agriculture</label></div>
+      <div class="int-item"><input type="checkbox" id="i8" value="law"><label for="i8">⚖️ Law &amp; Justice</label></div>
+      <div class="int-item"><input type="checkbox" id="i9" value="finance"><label for="i9">📊 Finance &amp; CA</label></div>
+      <div class="int-item"><input type="checkbox" id="i10" value="sports"><label for="i10">🏅 Sports</label></div>
+      <div class="int-item"><input type="checkbox" id="i11" value="media"><label for="i11">✍️ Media &amp; Writing</label></div>
+      <div class="int-item"><input type="checkbox" id="i12" value="arts"><label for="i12">🎵 Music &amp; Arts</label></div>
+      <div class="int-item"><input type="checkbox" id="i13" value="govt"><label for="i13">🏛️ Govt &amp; UPSC</label></div>
+      <div class="int-item"><input type="checkbox" id="i14" value="defence"><label for="i14">🪖 Defence</label></div>
+      <div class="int-item"><input type="checkbox" id="i15" value="social"><label for="i15">🤝 Social Work</label></div>
+      <div class="int-item"><input type="checkbox" id="i16" value="hotel"><label for="i16">🏨 Hotel &amp; Tourism</label></div>
+    </div>
+  </div>
+
+  <hr class="form-divider"/>
+
+  <div class="form-section-title">03 — लक्ष्य / Career Goal Type</div>
+  <div class="goal-grid" id="goal-grid">
+    <div class="goal-btn" onclick="toggleGoal(this,'govt')"><div class="goal-goal">🏛️</div>Sarkari Naukri</div>
+    <div class="goal-btn" onclick="toggleGoal(this,'private')"><div class="goal-goal">🏢</div>Private / Corporate</div>
+    <div class="goal-btn" onclick="toggleGoal(this,'startup')"><div class="goal-goal">🚀</div>Startup / Business</div>
+    <div class="goal-btn" onclick="toggleGoal(this,'freelance')"><div class="goal-goal">💻</div>Freelance</div>
+    <div class="goal-btn" onclick="toggleGoal(this,'higher-india')"><div class="goal-goal">📖</div>Higher Studies India</div>
+    <div class="goal-btn" onclick="toggleGoal(this,'abroad')"><div class="goal-goal">✈️</div>Abroad</div>
+  </div>
+
+  <div class="field-row">
+    <label>Any other details? <span class="hint">(optional)</span></label>
+    <input type="text" id="extra" placeholder="e.g. from rural area, interested in UPSC, want ₹1L+ salary, prefer WFH…"/>
+  </div>
+
+  <button class="submit-btn" id="submit-btn" onclick="generate()">
+    🇮🇳 &nbsp; मेरा करियर रास्ता खोजें — Find My Career Path
+  </button>
+
+</div>
+</div>
+
+<div id="loading">
+  <div class="chakra-loader"></div>
+  <div class="load-title">आपका प्रोफाइल विश्लेषण हो रहा है...</div>
+  <div class="load-sub">Analysing your Indian education profile</div>
+  <div class="load-step" id="load-step">// loading your personalised report...</div>
+</div>
+
+<div id="results">
+  <div class="profile-strip" id="profile-strip"></div>
+  <div id="error-area"></div>
+  <div id="result-sections"></div>
+</div>
+
+<script>
+/* ============================================================
+   CAREER ENGINE — Pure JS, No API, No Backend
+   Full rule-based recommendation system for Indian students
+   ============================================================ */
+
+let selectedGoal = '';
+
+function toggleGoal(el,val){
+  document.querySelectorAll('.goal-btn').forEach(b=>b.classList.remove('selected'));
+  if(selectedGoal===val){selectedGoal='';}
+  else{el.classList.add('selected');selectedGoal=val;}
+}
+function getInterests(){
+  return [...document.querySelectorAll('.int-item input:checked')].map(e=>e.value);
+}
+
+/* ── CAREER DATABASE ─────────────────────────────────────────────
+   Each career: match[] = education levels, interests[] = interest keys,
+   type[] = goal types  */
+const CAREERS=[
+  {id:'software-dev',title:'Software Developer / Engineer',emoji:'💻',
+   desc:'Build web, mobile and enterprise applications. India\'s largest private hiring sector. TCS, Infosys, Wipro hire 100,000s yearly; startups and MNCs pay top salaries.',
+   match:['btech-cs','bca','mca','bsc','mtech-cs','mtech','btech','polytechnic','dca','pcm'],
+   interests:['coding','business','science'],exam:'GATE (PSU/M.Tech) · Campus Placements · AMCAT · HackerEarth',
+   salaryStart:'₹3–6 LPA',salaryMid:'₹10–25 LPA',salaryTop:'₹40+ LPA',growth:'📈 Very High',type:['private','startup','freelance']},
+
+  {id:'data-scientist',title:'Data Scientist / AI-ML Engineer',emoji:'🤖',
+   desc:'Build machine learning models, work with big data and AI. Google, Amazon, Flipkart, analytics startups — highest paying tech jobs in India today.',
+   match:['btech-cs','btech','mtech','mtech-cs','mca','msc','bsc','phd'],
+   interests:['coding','science','finance','business'],exam:'GATE · IIT JAM · Company tests (HackerRank)',
+   salaryStart:'₹5–10 LPA',salaryMid:'₹15–35 LPA',salaryTop:'₹60+ LPA',growth:'📈 Extremely High',type:['private','startup','abroad']},
+
+  {id:'cybersecurity',title:'Cybersecurity Analyst',emoji:'🛡️',
+   desc:'Protect India\'s digital infrastructure. CERT-In, DRDO, banks and all MNCs have urgent demand. One of fastest growing fields globally.',
+   match:['btech-cs','btech','mtech-cs','mtech','bca','mca'],
+   interests:['coding','govt','defence'],exam:'CEH · CISSP certifications · DRDO CEPTAM',
+   salaryStart:'₹4–8 LPA',salaryMid:'₹12–22 LPA',salaryTop:'₹40+ LPA',growth:'📈 Very High',type:['private','govt','startup']},
+
+  {id:'web-dev',title:'Web / UI-UX Developer',emoji:'🌐',
+   desc:'Build websites, web apps and user interfaces. Massive freelance and remote opportunity globally. Very accessible with self-learning.',
+   match:['btech-cs','bca','dca','mca','polytechnic','bsc','btech','pcm'],
+   interests:['coding','design','business'],exam:'No formal entrance — portfolio matters most',
+   salaryStart:'₹2.5–5 LPA',salaryMid:'₹8–18 LPA',salaryTop:'₹30+ LPA (freelance)',growth:'📈 High',type:['private','startup','freelance']},
+
+  {id:'civil-eng',title:'Civil / Structural Engineer',emoji:'🏗️',
+   desc:'Design roads, bridges, dams, buildings. PWD, NHAI, Railways and construction giants like L&T hire thousands every year.',
+   match:['btech','mtech','polytechnic'],interests:['science','govt','business'],
+   exam:'GATE (M.Tech / PSU) · SSC JE · State PWD exams',
+   salaryStart:'₹3–5 LPA',salaryMid:'₹7–15 LPA',salaryTop:'₹25+ LPA',growth:'📊 Stable',type:['govt','private']},
+
+  {id:'mech-eng',title:'Mechanical / Automobile Engineer',emoji:'⚙️',
+   desc:'Manufacturing, automotive, aerospace. ISRO, DRDO, Tata Motors, Mahindra and 100s of core industries recruit B.Tech Mech graduates.',
+   match:['btech','mtech','polytechnic','iti'],interests:['science','defence','govt'],
+   exam:'GATE · ISRO · DRDO CEPTAM · SSC JE',
+   salaryStart:'₹3–6 LPA',salaryMid:'₹8–16 LPA',salaryTop:'₹30+ LPA',growth:'📊 Stable',type:['govt','private']},
+
+  {id:'elec-eng',title:'Electrical / Electronics Engineer',emoji:'⚡',
+   desc:'Power systems, VLSI, embedded systems. BHEL, NTPC, ONGC, Siemens and power sector companies are major recruiters.',
+   match:['btech','mtech','polytechnic','iti'],interests:['science','govt','coding'],
+   exam:'GATE · SSC JE · TNEB · State electricity board exams',
+   salaryStart:'₹3–6 LPA',salaryMid:'₹8–18 LPA',salaryTop:'₹35+ LPA',growth:'📈 Good',type:['govt','private']},
+
+  {id:'doctor',title:'MBBS Doctor / Medical Specialist',emoji:'🩺',
+   desc:'Clinical medicine, hospitals, and specialisation. After MBBS → NEET-PG for MD/MS specialisation. Specialists earn ₹10L+ monthly.',
+   match:['mbbs','md-ms','pcb','pcmb'],interests:['healthcare','science','social'],
+   exam:'NEET-PG · INI CET (AIIMS) · USMLE (USA) · PLAB (UK)',
+   salaryStart:'₹60,000–90,000/mo',salaryMid:'₹1.5–3L/mo',salaryTop:'₹5–10L+/mo',growth:'📈 Very High',type:['private','govt','abroad']},
+
+  {id:'pharmacist',title:'Pharmacist / Pharmaceutical Industry',emoji:'💊',
+   desc:'Retail pharmacy, hospital pharmacy, pharmaceutical companies (Sun Pharma, Cipla, Dr. Reddy\'s). India is global pharma hub.',
+   match:['bpharm','dpharma'],interests:['healthcare','science','business'],
+   exam:'GPAT (for M.Pharm) · State Pharmacy Council licensing',
+   salaryStart:'₹2–4 LPA',salaryMid:'₹5–12 LPA',salaryTop:'₹25+ LPA',growth:'📊 Good',type:['private','govt']},
+
+  {id:'nurse',title:'Nursing Professional / Nurse Manager',emoji:'💉',
+   desc:'Hospital nursing, ICU, community health, international nursing (Middle East, UK, Canada, Australia need Indian nurses badly).',
+   match:['bsc-nursing','nursing-diploma'],interests:['healthcare','social','science'],
+   exam:'AIIMS Nursing · Railway Staff Nurse exams · NCLEX (USA/Canada)',
+   salaryStart:'₹20,000–35,000/mo',salaryMid:'₹45,000–80,000/mo',salaryTop:'₹1.5L+/mo (abroad)',growth:'📈 High + International',type:['govt','private','abroad']},
+
+  {id:'ayurveda',title:'Ayurvedic / AYUSH Practitioner',emoji:'🌿',
+   desc:'India\'s AYUSH sector expanding fast. Government AYUSH hospitals, wellness industry, Patanjali-type companies, own clinic.',
+   match:['bams'],interests:['healthcare','science','social','agriculture'],
+   exam:'NEET-PG (AYUSH) · State AYUSH services exam',
+   salaryStart:'₹25,000–40,000/mo',salaryMid:'₹60,000–1.2L/mo',salaryTop:'₹2L+/mo',growth:'📈 Growing',type:['govt','private','freelance']},
+
+  {id:'ca',title:'Chartered Accountant (CA / CPA)',emoji:'📒',
+   desc:'Auditing, taxation, financial planning. CA is among the most respected and highest paying professions in India. Big 4 firms start at ₹8–12 LPA.',
+   match:['ca','bcom','mcom','bba','mba','commerce','commerce-maths'],
+   interests:['finance','business','law'],exam:'CA Foundation → CA Inter → CA Final (ICAI)',
+   salaryStart:'₹5–8 LPA',salaryMid:'₹12–30 LPA',salaryTop:'₹1 Cr+ (Big 4/own firm)',growth:'📈 Very High',type:['private','startup','freelance']},
+
+  {id:'banker',title:'Banking & Finance Professional',emoji:'🏦',
+   desc:'SBI, PNB, Bank of Baroda (govt); HDFC, ICICI, Kotak (private); RBI, NABARD, SIDBI (apex bodies). Stable career with good perks.',
+   match:['bcom','bba','mba','mcom','bsc','ba','ca','commerce','commerce-maths'],
+   interests:['finance','business','govt'],exam:'IBPS PO/Clerk · SBI PO/Clerk · RBI Grade B · NABARD',
+   salaryStart:'₹3–6 LPA',salaryMid:'₹8–18 LPA',salaryTop:'₹30+ LPA',growth:'📊 Steady',type:['govt','private']},
+
+  {id:'investment',title:'Investment Analyst / Stock Market Professional',emoji:'📈',
+   desc:'Equity research, mutual funds, portfolio management, investment banking. NSE, BSE, SEBI, AMCs and investment banks hire here.',
+   match:['mba','ca','bcom','mcom','bba'],interests:['finance','business','coding'],
+   exam:'NISM certifications · CFA (global) · NSE Academy · SEBI Grade A',
+   salaryStart:'₹4–8 LPA',salaryMid:'₹15–35 LPA',salaryTop:'₹1 Cr+ (investment banking)',growth:'📈 High',type:['private','startup','freelance']},
+
+  {id:'mba-manager',title:'Business Manager / MBA Professional',emoji:'🏢',
+   desc:'Marketing, HR, operations, strategy, consulting. IIM graduates start at ₹20–25 LPA. MBA opens senior management roles at all companies.',
+   match:['mba','bba','commerce','commerce-maths'],interests:['business','finance','media'],
+   exam:'CAT · XAT · GMAT · MAT for top MBA programs',
+   salaryStart:'₹4–10 LPA (tier-2) / ₹20+ LPA (IIM)',salaryMid:'₹15–40 LPA',salaryTop:'₹1 Cr+',growth:'📈 Very High',type:['private','startup','abroad']},
+
+  {id:'marketing',title:'Digital Marketing / Brand Manager',emoji:'📣',
+   desc:'SEO, social media, paid ads, content strategy. Every D2C brand, e-commerce company and startup needs digital marketers. Freelance market is massive.',
+   match:['bba','mba','ba','bjmc','bcom','bsc','arts','commerce'],
+   interests:['business','media','design','coding'],exam:'Google Certifications · HubSpot · Meta Blueprint (all free)',
+   salaryStart:'₹2.5–5 LPA',salaryMid:'₹8–20 LPA',salaryTop:'₹40+ LPA',growth:'📈 Very High',type:['private','startup','freelance']},
+
+  {id:'ias-ips',title:'IAS / IPS / IFS — Indian Civil Services',emoji:'🏛️',
+   desc:'India\'s most prestigious career. Become District Collector, Commissioner of Police, or diplomat. Requires 1–3 years of serious preparation.',
+   match:['ba','bsc','bcom','btech','mbbs','llb','bba','bca','mba','mtech','btech-cs','bsc-agri','phd','ma','msc'],
+   interests:['govt','law','social','media'],exam:'UPSC CSE (Prelims + Mains + Interview) — annual exam',
+   salaryStart:'₹56,100/mo + DA + HRA + allowances',salaryMid:'₹1–1.5L/mo',salaryTop:'Cabinet Secretary level',growth:'🏛️ Prestige + Power + Pension',type:['govt']},
+
+  {id:'ssc',title:'SSC / Central Government Job',emoji:'📋',
+   desc:'SSC CGL (Income Tax, Audit, Excise), CHSL (LDC, PA), MTS for ministries and govt departments. Lakhs of vacancies every year.',
+   match:['12th-pass','ba','bsc','bcom','btech','bca','bba','arts','commerce'],
+   interests:['govt','finance','law'],exam:'SSC CGL · SSC CHSL · SSC MTS · SSC GD Constable',
+   salaryStart:'₹25,000–45,000/mo',salaryMid:'₹50,000–80,000/mo',salaryTop:'₹1.2L+/mo',growth:'🏛️ Job Security + Pension',type:['govt']},
+
+  {id:'railway',title:'Railway / RRB Government Job',emoji:'🚂',
+   desc:'India\'s largest employer. RRB NTPC for clerk/station master/TC; ALP for loco pilot; Group D for various posts. Lakhs of vacancies.',
+   match:['10th-pass','12th-pass','iti','polytechnic','btech','bsc'],
+   interests:['govt','science'],exam:'RRB NTPC · RRB ALP · RRB Group D',
+   salaryStart:'₹20,000–35,000/mo',salaryMid:'₹45,000–70,000/mo',salaryTop:'₹1L+/mo',growth:'🏛️ Secure',type:['govt']},
+
+  {id:'psu-engineer',title:'PSU Engineer (BHEL/ONGC/NTPC/ISRO/HAL)',emoji:'🏭',
+   desc:'India\'s elite public sector engineering companies. Excellent CTC, job security, technical work on India\'s biggest infrastructure projects.',
+   match:['btech','mtech','btech-cs','mtech-cs'],interests:['science','govt','coding'],
+   exam:'GATE score (6.5+ marks) — mandatory for all PSU recruitment',
+   salaryStart:'₹50,000–70,000/mo',salaryMid:'₹1–1.8L/mo',salaryTop:'₹2.5L+/mo',growth:'📈 Good + Secure',type:['govt']},
+
+  {id:'army-officer',title:'Indian Army / Navy / Air Force Officer',emoji:'🪖',
+   desc:'Commissioned officer in Indian Armed Forces. Highly respected, adventure, excellent lifestyle, housing and medical facilities for life.',
+   match:['btech','bsc','ba','bcom','12th-pass','pcm','pcb','bca','bba','mbbs','arts','commerce'],
+   interests:['defence','sports','govt','science'],exam:'NDA (after 12th) · CDS · AFCAT · TGC · SSC Tech',
+   salaryStart:'₹56,100–77,000/mo + all allowances',salaryMid:'₹1.3–1.8L/mo',salaryTop:'General/Admiral level',growth:'🪖 Prestige + Security',type:['govt']},
+
+  {id:'paramilitary',title:'CRPF / BSF / CISF / ITBP / NDRF',emoji:'🛡️',
+   desc:'Central Armed Police Forces. Large vacancies annually at ASI, HC and Constable levels. Pension, housing, medical all covered.',
+   match:['10th-pass','12th-pass','ba','bsc','bcom','arts'],
+   interests:['defence','sports','govt'],exam:'CRPF / BSF / CISF recruitment · SSC GD Constable',
+   salaryStart:'₹21,700–35,000/mo',salaryMid:'₹45,000–65,000/mo',salaryTop:'₹1L+/mo',growth:'🛡️ Secure + Pension',type:['govt']},
+
+  {id:'teacher',title:'School Teacher (TGT / PGT / Primary)',emoji:'📚',
+   desc:'Teach in KVs, Navodaya Vidyalayas, state board schools and CBSE private schools. Stable career with 40+ days of holidays annually.',
+   match:['bed','med','deled','ba','bsc','bcom','ma','msc','arts','commerce'],
+   interests:['teaching','social','arts','media'],exam:'CTET · TET (State) · KVS · NVS · DSSSB exams',
+   salaryStart:'₹25,000–40,000/mo',salaryMid:'₹50,000–80,000/mo',salaryTop:'₹1.2L+/mo',growth:'📊 Steady + Respected',type:['govt','private']},
+
+  {id:'professor',title:'College Professor / University Lecturer',emoji:'🎓',
+   desc:'Teach at degree colleges and universities. NET qualified professors are in high demand. Research and publication opportunities.',
+   match:['ma','msc','mcom','mba','mtech','phd','med'],
+   interests:['teaching','science','social','law','finance'],exam:'UGC NET · SLET (State) · PhD for central universities',
+   salaryStart:'₹35,000–50,000/mo',salaryMid:'₹75,000–1.2L/mo',salaryTop:'₹2L+/mo',growth:'📊 Good + Academic Freedom',type:['govt','private']},
+
+  {id:'edtech',title:'EdTech Educator / Online Tutor',emoji:'🖥️',
+   desc:'Teach on Unacademy, BYJU\'S, Vedantu, or your own YouTube/coaching channel. Top educators earn crores. Very scalable.',
+   match:['ba','bsc','bcom','ma','msc','bed','mtech','btech','mba','btech-cs'],
+   interests:['teaching','coding','media','business'],exam:'No exam — subject expertise + communication skills',
+   salaryStart:'₹3–5 LPA',salaryMid:'₹8–25 LPA',salaryTop:'Crores (top YouTubers)',growth:'📈 Very High',type:['private','startup','freelance']},
+
+  {id:'advocate',title:'Advocate / Corporate Lawyer',emoji:'⚖️',
+   desc:'Practice at district courts, High Courts or Supreme Court. Corporate lawyers at Big Law firms earn ₹25–50+ LPA. In-house counsel roles at companies.',
+   match:['llb','llm'],interests:['law','social','govt','business'],
+   exam:'AIBE (Bar Council) · State Judicial exam · UGC NET Law · LLM entrance',
+   salaryStart:'₹2–6 LPA',salaryMid:'₹10–25 LPA',salaryTop:'₹1 Cr+ (top corporate lawyers)',growth:'📈 High',type:['private','freelance','govt']},
+
+  {id:'judiciary',title:'Judicial Services (Civil Judge / Magistrate)',emoji:'🏛️',
+   desc:'Become a Civil Judge or Judicial Magistrate via state judiciary exam. One of the most prestigious and well-paying government positions.',
+   match:['llb','llm'],interests:['law','govt','social'],
+   exam:'State Judicial Services Exam (PCS-J) — after LLB 3 years',
+   salaryStart:'₹77,840/mo',salaryMid:'₹1.2–1.5L/mo',salaryTop:'High Court Judge level',growth:'🏛️ Highly Prestigious',type:['govt']},
+
+  {id:'agri-officer',title:'Agriculture Officer / ADA (Govt)',emoji:'🌾',
+   desc:'State agriculture departments, NABARD, ICAR, KVK. Help farmers with modern techniques, advise on PM schemes, lead rural development.',
+   match:['bsc-agri','msc-agri'],interests:['agriculture','science','social','govt'],
+   exam:'State Agriculture Dept exams · NABARD Grade A · ICAR JRF',
+   salaryStart:'₹35,000–50,000/mo',salaryMid:'₹65,000–1L/mo',salaryTop:'₹1.5L+/mo',growth:'📈 Growing + Respected',type:['govt','private']},
+
+  {id:'agri-startup',title:'AgriTech Entrepreneur / Agri Business',emoji:'🚜',
+   desc:'Farm-to-market ventures, FPOs, agri-drones, precision farming, cold chain logistics. PM Kisan, NABARD and SIDBI offer startup funding.',
+   match:['bsc-agri','msc-agri','btech','bba'],interests:['agriculture','business','coding'],
+   exam:'No exam — NABARD startup schemes · AIC incubators',
+   salaryStart:'Variable startup income',salaryMid:'₹5–20 LPA',salaryTop:'Unlimited',growth:'📈 High Potential',type:['startup','freelance']},
+
+  {id:'journalist',title:'Journalist / News Anchor / Editor',emoji:'📰',
+   desc:'Print, TV, digital news media. Major channels (NDTV, ABP, Aaj Tak), newspapers (TOI, HT), and news portals hire reporters, anchors, editors.',
+   match:['bjmc','ba','ma','arts'],interests:['media','law','social','govt'],
+   exam:'IIMC entrance · FTII · PII certifications',
+   salaryStart:'₹2–4 LPA',salaryMid:'₹6–15 LPA',salaryTop:'₹30+ LPA (anchors)',growth:'📊 Moderate',type:['private','freelance']},
+
+  {id:'graphic-designer',title:'Graphic / Product / UI-UX Designer',emoji:'🎨',
+   desc:'Brand identity, UI design, product design, illustration. Zomato, Meesho, Swiggy, all tech companies have strong design teams. High freelance demand.',
+   match:['bdes','bfa','mdes','mfa','bjmc','barch'],
+   interests:['design','coding','business','media','arts'],exam:'NID entrance · NIFT entrance · Portfolio-based hiring',
+   salaryStart:'₹2.5–5 LPA',salaryMid:'₹8–18 LPA',salaryTop:'₹30+ LPA',growth:'📈 High',type:['private','startup','freelance']},
+
+  {id:'filmmaker',title:'Filmmaker / Content Creator / YouTuber',emoji:'🎬',
+   desc:'YouTube, OTT (Netflix, Amazon, JioCinema), ad films, short films, documentaries. India\'s content economy is booming with billions of viewers.',
+   match:['bjmc','bfa','mfa','ba','bdes'],interests:['media','arts','design','business'],
+   exam:'FTII Pune (entrance) · SRFTI Kolkata · YouTube (self-start, free)',
+   salaryStart:'₹2–5 LPA',salaryMid:'₹8–25 LPA',salaryTop:'Crores (top creators)',growth:'📈 High',type:['private','startup','freelance']},
+
+  {id:'architect',title:'Architect / Urban Planner',emoji:'🏛️',
+   desc:'Design residential, commercial, smart city projects. HUDCO, government departments and private firms. India\'s infrastructure boom creates demand.',
+   match:['barch'],interests:['design','science','business'],
+   exam:'NATA (for B.Arch admission) · Council of Architecture (registration)',
+   salaryStart:'₹3–6 LPA',salaryMid:'₹8–20 LPA',salaryTop:'₹40+ LPA (own firm)',growth:'📊 Steady',type:['private','govt','freelance']},
+
+  {id:'hotel-mgmt',title:'Hotel Manager / Hospitality Professional',emoji:'🏨',
+   desc:'5-star hotels (Taj, Oberoi, Marriott), cruise ships, airlines, restaurants. Strong international opportunities in Gulf, Europe and Southeast Asia.',
+   match:['bhm'],interests:['hotel','business','social'],
+   exam:'NCHMCT JEE for IHM (top govt hotel management college)',
+   salaryStart:'₹2.5–4 LPA',salaryMid:'₹6–15 LPA',salaryTop:'₹30+ LPA + accommodation',growth:'📈 International',type:['private','abroad']},
+
+  {id:'sports-coach',title:'Sports Coach / Sports Scientist',emoji:'🏅',
+   desc:'National sports academies (SAI), schools, army sports institutes, IPL/ISL franchises, personal training. India\'s sports sector growing fast.',
+   match:['bped','ba','bsc'],interests:['sports','teaching','govt','defence'],
+   exam:'SAI recruitment · NSNIS coaching certification · NIS Patiala',
+   salaryStart:'₹20,000–40,000/mo',salaryMid:'₹50,000–1L/mo',salaryTop:'₹2L+/mo (elite)',growth:'📊 Growing',type:['govt','private','freelance']},
+
+  {id:'social-worker',title:'NGO / Development Sector Professional',emoji:'🤝',
+   desc:'Work with international NGOs (Oxfam, UNICEF, CRY, Pratham), government schemes, development projects. Meaningful career with good senior pay.',
+   match:['bsw','ma','ba','bed','arts'],interests:['social','teaching','law','govt'],
+   exam:'TISS entrance (for MSW) · State welfare board exams',
+   salaryStart:'₹2.5–4 LPA',salaryMid:'₹5–12 LPA',salaryTop:'₹25+ LPA (INGO senior roles)',growth:'📊 Purpose-driven',type:['govt','private','startup']},
+
+  {id:'technician',title:'Skilled Technician / Master Tradesperson',emoji:'🔧',
+   desc:'ITI / Diploma in electrician, welder, fitter, plumber. Industries, Railways, defence factories, BHEL. Own business can earn ₹1L+ monthly.',
+   match:['iti','polytechnic'],interests:['science','govt'],
+   exam:'RRB ALP · DRDO Technician · State PSU Technician · Apprenticeship',
+   salaryStart:'₹18,000–28,000/mo',salaryMid:'₹35,000–55,000/mo',salaryTop:'₹1L+/mo (self-employed)',growth:'📊 Steady',type:['govt','private','freelance']},
+
+  {id:'ms-abroad',title:'MS / Higher Studies Abroad (USA/UK/Canada)',emoji:'✈️',
+   desc:'Masters at MIT, Stanford, IVY League (USA); LSE, UCL (UK); U of Toronto (Canada). Opens global career. GRE/GMAT + 7.5+ CGPA needed.',
+   match:['btech','btech-cs','bsc','bba','bcom','mtech','mba'],
+   interests:['science','coding','business','finance'],exam:'GRE (for MS) · GMAT (for MBA) · IELTS/TOEFL',
+   salaryStart:'$70,000–90,000/yr (abroad)',salaryMid:'$100,000–150,000/yr',salaryTop:'$200,000+ /yr',growth:'📈 Very High (Global)',type:['abroad']},
+];
+
+/* ── SKILLS DATABASE ─────────────────────────────────────── */
+const EXISTING={
+  'pcm':['Mathematical problem solving and analytical thinking','Physics concepts — mechanics, electromagnetism, optics','Chemistry fundamentals — organic, inorganic, physical','Calculus, trigonometry and coordinate geometry'],
+  'pcb':['Biology — zoology, botany, human physiology in depth','Chemistry and biochemistry fundamentals','Scientific observation and lab skills','Research-oriented analytical thinking'],
+  'pcmb':['Comprehensive STEM foundation — both Biology and Maths','Physics and Chemistry dual strength','Scientific reasoning across disciplines','Ability to attempt both engineering and medical paths'],
+  'commerce-maths':['Financial accounting and bookkeeping','Business mathematics and statistics','Economics — micro and macro','Quantitative aptitude and data interpretation'],
+  'commerce':['Accountancy and basic bookkeeping','Business studies and economics','Communication and presentation skills','Understanding of market and trade basics'],
+  'arts':['Strong written and verbal communication','History, political science, geography knowledge','Critical thinking and philosophical reasoning','Language proficiency in Hindi/English/Regional language'],
+  'agriculture-12':['Crop science and soil management knowledge','Agricultural economics awareness','Biology and environmental science basics','Rural development and scheme awareness'],
+  'home-science':['Nutrition and food science fundamentals','Child development and psychology basics','Home management and design sense','Healthcare awareness and first aid'],
+  'vocational':['Job-ready practical skills in chosen trade','Industry-specific knowledge','Hands-on workshop or lab experience','Entrepreneurship basics'],
+  'btech':['Core engineering fundamentals','Technical problem-solving skills','Engineering Mathematics (calculus, linear algebra)','Laboratory and workshop skills'],
+  'btech-cs':['Programming (C, C++, Python, Java, JavaScript)','Data structures and algorithms','Database management (SQL, NoSQL)','Computer networks and OS fundamentals','Object-oriented and functional programming'],
+  'bsc':['Scientific research methodology','Laboratory and experimental skills','Mathematical and statistical analysis','Data interpretation and reporting'],
+  'bsc-agri':['Crop production and agronomy science','Soil science and plant nutrition','Agricultural economics and marketing','Plant protection and pest management'],
+  'bcom':['Financial accounting (up to advanced level)','Taxation basics — GST, Income Tax, TDS','Corporate law awareness','Cost accounting and auditing basics'],
+  'bba':['Business management principles','Marketing, HR and operations basics','Entrepreneurship and startup concepts','Communication and presentation excellence'],
+  'ba':['Research writing and critical analysis','Social sciences — Sociology, Poli Sci, Economics','Language and communication skills','Public policy and governance awareness'],
+  'bca':['Programming (C, Java, Python, PHP)','Web technologies (HTML, CSS, JavaScript)','Database management (MySQL)','Software engineering concepts and SDLC'],
+  'mbbs':['Clinical diagnosis and patient management','Pharmacology and drug interaction knowledge','Anatomy, physiology and pathology depth','Medical ethics and doctor-patient communication'],
+  'llb':['Legal research and case study analysis','Constitutional, civil and criminal law','Court procedure and pleadings','Logical argumentation and debate skills'],
+  'ca':['Financial reporting (Ind AS / IFRS)','Taxation — Direct and Indirect both','Auditing, assurance and internal control','Corporate finance and valuation'],
+  'mba':['Strategic management and business planning','Financial statement analysis','Marketing strategy and consumer behavior','Leadership, negotiation and team management'],
+  'mtech':['Advanced engineering research skills','Technical project management','Specialisation domain deep expertise','Academic writing and paper publication'],
+  'bsc-nursing':['Clinical nursing procedures and patient care','Medical terminology and pharmacology','Healthcare teamwork and communication','Emergency care and triage basics'],
+  'nursing-diploma':['Basic clinical nursing and patient care','Anatomy, physiology and health assessment','Medicine administration and documentation','Community health awareness'],
+  'iti':['Hands-on technical skills in chosen trade','Safety, compliance and quality standards','Tool, equipment and machine handling','Workshop practices and maintenance'],
+  'polytechnic':['Applied engineering and technical concepts','Workshop lab skills and technical drawing','Industry-ready practical knowledge','Diploma-level engineering problem solving'],
+  'bpharm':['Pharmaceutical chemistry and drug formulation','Pharmacology and pharmacognosy','Quality control and regulatory affairs basics','Pharmaceutical manufacturing awareness'],
+  'barch':['Architectural design and spatial thinking','Structural knowledge and materials science','AutoCAD and 3D modelling software','Urban planning and environmental design'],
+  'bdes':['Design thinking and creative problem solving','Typography, colour theory, layout design','Figma, Adobe CC suite proficiency','User research and design process methodology'],
+  'bjmc':['News writing, reporting and editing','Audio-visual production skills','Media law and ethics awareness','Digital media and social media content'],
+  'phd':['Deep domain expertise and original research','Academic writing and paper publication','Grant writing and project management','Teaching and mentoring at university level'],
+  'default':['Self-learning and adaptability','Communication and interpersonal skills','Problem-solving and logical thinking','Digital literacy and computer basics'],
+};
+
+const LEARN={
+  coding:['Python for AI/ML and automation — 3 months, free on freeCodeCamp & YouTube','Full-Stack Web Dev (React + Node.js) — 4 months, The Odin Project (free)','Data Analysis with Excel + Python (Pandas) — 6 weeks, Kaggle free courses','Cloud (AWS/Azure) fundamentals — 2 months, official free tier labs'],
+  design:['Figma for UI/UX Design — 1 month, Figma Academy (free)','Adobe Illustrator and Photoshop — 2 months, YouTube tutorials (free)','Design Thinking methodology — 2 weeks, IDEO+ or Coursera (free)','Portfolio building — make 5-10 real projects and post on Behance/Dribbble'],
+  business:['Digital Marketing — SEO, Google Ads — 6 weeks, Google Skillshop (free)','Advanced Excel / Google Sheets for business — 3 weeks, YouTube','Financial modelling basics — 2 months, Udemy (₹500–800)','Business communication and public speaking — Toastmasters (free)'],
+  science:['Research methodology and statistical analysis (R / SPSS) — 2 months, edX','Scientific writing and paper publication — ongoing, free university resources','Python for scientific computing (NumPy, SciPy) — 2 months, freeCodeCamp','Lab safety, advanced instrumentation — institution workshops'],
+  healthcare:['BLS (Basic Life Support) and First Aid certification — 1 day, Red Cross','Medical terminology mastery — 1 month, YouTube / free apps','Healthcare IT systems (EMR/EHR) — 2 months, Coursera','Nutrition and preventive health counselling — 1 month, WHO online course'],
+  teaching:['Effective classroom management and pedagogy — DIKSHA platform (free, Govt of India)','EdTech tools — Google Classroom, Canva for Education — 2 weeks, free','Online teaching and content creation — 1 month, YouTube + Teachable','Communication and public speaking — Toastmasters (free chapters in all cities)'],
+  agriculture:['Precision farming and modern agriculture technology — YouTube/ICAR free resources','Agricultural drone operation — DGCA certification (3 months)','Agri-business and FPO management — NABARD free training programs','Organic farming certification — 1 month, Participatory Guarantee System'],
+  law:['Legal research tools (SCC Online, Manupatra) — 2 weeks, free trial','Contract drafting and legal writing — LawSikho courses (₹5,000–15,000)','Alternate Dispute Resolution (ADR / Mediation) — 1 month, IIAM programs','Cyber law and IP law — NALSAR free online courses'],
+  finance:['CFA Level 1 preparation — 6 months, CFA Institute free resources','NISM Series certifications (mutual funds, equity) — 1-2 months, free study material','Advanced Excel for financial modelling — 1 month, YouTube','Financial news habit — ET, Mint, Bloomberg Quint — 30 minutes daily'],
+  sports:['Sports psychology and athlete mental training — NSNIS resources, books','Nutrition and sports science — ISSA online certification','Coaching methodology and periodisation — NIS/SAI programs','Performance video analysis tools — Dartfish, Hudl'],
+  media:['Video editing — Adobe Premiere / DaVinci Resolve — 1 month, YouTube (free)','Copywriting and content strategy — 6 weeks, HubSpot Academy (free)','Social media management and analytics — Meta Blueprint (free)','SEO writing and keyword research — Yoast Academy, Ahrefs blog (free)'],
+  arts:['Music theory and production (GarageBand, FL Studio) — 3 months, YouTube','Performing arts skill development — workshops, Sangeet Natak Akademi programs','Portfolio and demo reel creation — continuous practice','Cultural grant writing — Lalit Kala Akademi, India Foundation for the Arts'],
+  govt:['UPSC strategy and NCERT foundation — Vision IAS (free YouTube), Unacademy','Current affairs daily reading — The Hindu, PIB, PRS India (free)','Essay writing and answer writing practice — 1 essay per week habit','Personality and communication for interview — LBSNAA recommended readings'],
+  defence:['Physical fitness training — 1.6km run (6 mins target), 50 push-ups, sit-ups — daily','NDA/CDS syllabus subjects — Pathfinder book, RS Aggarwal for maths','Map reading and military geography — NCERT Geography + NDA guide','NCC certification (A, B, C) — highly valued for Army/Navy/Air Force'],
+  social:['Community mobilisation and grassroots organising — IRMA, TISS free resources','Project management (PM4NGO certification) — free online','Grant writing for NGOs and FCRA compliance — online workshops','Government scheme knowledge — PM Awas, Ayushman Bharat, MGNREGA'],
+  hotel:['International cuisine and food safety — hotel management standard books','FSSAI food safety supervisor certification — 1 month, free online','Hospitality English and communication — YouTube + speaking practice','Revenue management and hospitality software (Opera PMS) — Coursera'],
+  default:['MS Office / Google Workspace complete — 2 weeks, free YouTube','English communication skills — Coursera free audited courses','Time management and productivity (GTD method) — 1 week, free resources','LinkedIn profile and professional networking — free LinkedIn Learning'],
+};
+
+const EXAMS={
+  '8th':['Focus on academics now — career planning starts at 9th grade','Consider joining NCC (National Cadet Corps) early','Participate in Olympiads (Math, Science) to build competitive mindset'],
+  '10th-studying':['Start thinking about stream selection: Science (PCM/PCB), Commerce, or Arts','Aim for 90%+ in 10th boards to keep all options open','Consider joining NCC, NSS for extracurriculars'],
+  '10th-pass':['Polytechnic entrance (state-level) for diploma in engineering','ITI admission for trade-based technical skills','Class 11 stream selection is the most important decision now'],
+  'pcm':['JEE Main (for NITs, IIITs, CFTIs)','JEE Advanced (for IITs — top 2.5L from JEE Main)','BITSAT (BITS Pilani)','State engineering CETs (MHT-CET, KCET, AP EAMCET, etc.)','NDA (if interested in armed forces after 12th)'],
+  'pcb':['NEET-UG (for MBBS, BDS, BAMS, BVMS)','CUET for B.Sc Nursing / B.Sc programs','ICAR AIEEA for B.Sc Agriculture'],
+  'pcmb':['Both JEE Main AND NEET-UG — keep both options open','CUET for multiple UG programs','ICAR AIEEA for Agriculture colleges'],
+  'commerce-maths':['CUET for B.Com, BBA, BA programs','CA Foundation (ICAI) — register during 12th itself','IPMAT (IIM Indore / Rohtak) for 5-year integrated MBA','NDA (Mathematics component helps)'],
+  'commerce':['CUET for B.Com, BBA, BA programs','CA Foundation (ICAI)','IPMAT for 5-year MBA','DU, Symbiosis, Christ University entrance exams'],
+  'arts':['CUET for BA / BFA / B.Des programs','CLAT (for LLB — law career)','NID entrance (for design)','NIFT entrance (for fashion/textile design)','IIMC entrance (for journalism / mass communication)'],
+  'agriculture-12':['ICAR AIEEA for agricultural universities (IARI, BHU, PAU etc.)','CUET for B.Sc general programs','State agricultural university entrance exams'],
+  '12th-pass':['CUET for most central university UG programs','JEE/NEET (if science stream)','CA Foundation (commerce)','SSC CGL / CHSL (after graduation)','NDA/CDS (for defence services)'],
+  'btech':['GATE (for M.Tech, PSU jobs — most important for engg graduates)','CAT/XAT (for MBA — career shift option)','GRE (for MS abroad)','SSC JE for Civil/Mech/Elect engineers','UPSC IES (Engineering Services Exam)'],
+  'btech-cs':['GATE CS (for PSU / M.Tech)','CAT (MBA option)','GRE (MS abroad at top global universities)','Product companies via DSA interview prep (LeetCode)','UPSC IES (computer science)'],
+  'bcom':['CA Inter (if already registered with ICAI)','CAT/XAT for MBA admissions','IBPS PO/Clerk (banking)','UGC NET Commerce (for assistant professor)','UPSC (optional — many IAS from Commerce background)'],
+  'ba':['UPSC CSE (most popular for B.A. graduates)','UGC NET (for teaching / PhD)','CLAT PG (for LLM)','SSC CGL / CHSL','State PSC exams (State Civil Services)'],
+  'bsc':['GATE (for M.Tech or PSU jobs)','CSIR NET/JRF (for PhD scholarship)','UGC NET (for lecturer)','ICAR JRF (for agriculture/life science)','UPSC (optional)'],
+  'bca':['GATE CS (for M.Tech/PSU)','GRE (for MS abroad)','MCA entrance (some universities)','Direct placements in IT companies via AMCAT/eLitmus'],
+  'mbbs':['NEET-PG (for MD/MS — most important)','INI CET (AIIMS, JIPMER PG)','USMLE Step 1, 2, 3 (practice in USA)','PLAB Part 1+2 (practice in UK)','DNB CET (Diplomate of National Board)'],
+  'llb':['AIBE (All India Bar Exam — mandatory for practice)','State Judicial Services Exam (PCS-J) for judgeship','UGC NET Law (for teaching/PhD)','LLM entrance exams at top universities'],
+  'ca':['SEBI Grade A (market regulator)','RBI Grade B (central bank — highly prestigious)','UPSC (some CAs attempt IRS tax services)','IIM/ISB direct admission (many CAs get MBA calls)'],
+  'bba':['CAT/XAT for MBA (most important next step)','IPMAT had already done it','IBPS PO (banking option)','SSC CGL (government option)'],
+  'bed':['CTET (Central Teacher Eligibility Test — mandatory for KV/NVS)','TET (State Teacher Eligibility Test — mandatory for state)','KVS PGT/TGT exam','NVS (Navodaya Vidyalaya) teacher exam','DSSSB (Delhi govt schools)'],
+  'mba':['UPSC (IAS, IES — optional career change)','SEBI / RBI / NABARD Grade A','FPM/FPM-equivalent (doctoral research in management at IIMs)','International job search (GCC, Singapore, UK)'],
+  'mtech':['PhD at IITs/IISc (JRF fellowship ₹31,000/mo)','ISRO/DRDO Scientist recruitment (GATE + interview)','Faculty positions at NITs/IITs (direct)','International PhD / postdoc'],
+  'phd':['Post-doctoral fellowship (IISc, TIFR, NCBS, IITs)','Assistant Professor positions (UGC regulations require NET + PhD)','DST, DBT, CSIR research funding grants','Industry R&D (pharma, IT research, policy think tanks)'],
+  'default':['CUET (Common University Entrance Test — for most central university programs)','SSC / state PSC exams for government jobs','Certification courses in your field of interest'],
+};
+
+const ROADMAPS={
+  govt:['Build NCERT foundation in History, Geography, Polity, Economy — 6 months of systematic study','Join free online resources: Unacademy (free content), YouTube (Mrunal, StudyIQ)','Solve 5–8 years of previous year question papers for your target exam','Appear for lower-level exams first (SSC CHSL, State PSC Group C) — for experience, confidence and income while preparing','Apply for main target exam (UPSC CSE/SSC CGL/State PSC) every year — most successful candidates clear in 2–3 attempts','Maintain physical fitness and stay updated with current affairs daily (The Hindu + PIB)'],
+  private:['Identify 3–5 specific job roles and companies you want to target in the next 12 months','Build a strong, one-page ATS-friendly resume — highlight projects, internships and certifications','Prepare specifically: DSA for tech roles / case studies + STAR stories for management roles','Register and be active on LinkedIn, Naukri.com, Internshala — apply within first 24 hours of job posting','Do at least one internship (even unpaid) to get "experience" on your resume','Apply to 30–50 companies simultaneously, track responses, and iterate your resume based on rejection patterns'],
+  startup:['Identify one real problem faced by a specific group of people around you','Talk to 20–30 potential customers before building anything (customer discovery)','Learn basic business skills: financial planning, digital marketing, customer acquisition','Build a Minimum Viable Product (MVP) — fastest and cheapest version that solves the core problem','Apply to startup incubators: IIT/IIM incubators, AIC (Atal Innovation Mission), NSRCEL, CIIE','Explore funding: PM MUDRA Yojana (up to ₹10L), Angel investors, Startup India Seed Fund Scheme'],
+  freelance:['Build a portfolio of 5–10 strong sample projects — quality over quantity','Create complete profiles on Upwork, Fiverr, Toptal, LinkedIn and Naukri Freelance','Start with competitive pricing (slightly below market) to get your first 10 reviews fast','Network in freelancer communities: LinkedIn, Twitter/X, Reddit (r/India), IndiaFreelancer groups','Set up proper business: Register as sole proprietor, open a current account, get GST number when turnover crosses ₹20L','Productise your service — create a fixed deliverable with a fixed price to make selling easier'],
+  'higher-india':['List all target colleges/universities and their specific entrance exams (JEE/GATE/CAT/CUET/NEET-PG etc.)','Create a 6–12 month study plan and follow it daily — consistency beats intensity','Use best free resources: NPTEL, YouTube (subject-specific channels), past 10 years papers','Apply for scholarships early: National Merit, SC/ST/OBC specific, Central Sector Scholarship, institution scholarships','Appear in multiple overlapping exams to maximise your options — do not put all eggs in one basket','Stay on campus after results — appeal for re-evaluation if score is borderline for your dream college'],
+  abroad:['Maintain 7.5+ CGPA throughout your degree — many top universities have strict GPA cutoffs','Appear for GRE/GMAT (min 320+/700+) and IELTS/TOEFL (min 7.0/100) at least 1 year before admission','Build research experience, projects and publications — IITs/IISc alumni have advantage in getting US admits','Collect 3 strong recommendation letters from professors/employers who know your work well','Write a compelling Statement of Purpose (SoP) — tell a unique story, not a resume in paragraph form','Apply to 8–10 universities: 2–3 stretch/reach, 4–5 match/target, 2–3 safe. Deadline: Sep–Nov for US admits'],
+  default:['Set one specific, measurable 3-year career goal (e.g., "Become a Data Analyst at an MNC by age 24")','Research your target role — read 20 job descriptions to understand what skills and experience are needed','Build missing skills through free/paid courses (NPTEL, Coursera, YouTube)','Create or improve LinkedIn profile and start connecting with professionals in your target field','Get at least one relevant project, internship or certificate completed in the next 3 months','Apply broadly, track applications in a spreadsheet, learn from every rejection and iterate'],
+};
+
+const SALARY={
+  '8th':{note:'Focus on studies right now. Career planning is premature at Class 8. Build a strong foundation in Mathematics, Science and English — these open every door. Explore your interests through reading, extracurriculars and online learning.'},
+  '10th-studying':{note:'Focus on your Class 10 board exam — 90%+ opens every door. Stream selection after 10th is the most important decision ahead. Research PCM, PCB, Commerce and Arts carefully. Talk to people in careers that interest you.'},
+  '10th-pass':{entry:'₹10,000–18,000/mo (ITI / apprenticeship)',mid:'₹25,000–50,000/mo (after 3–5 years + skill)',top:'₹1L+/mo (self-employed tradesperson / govt job)'},
+  'pcm':{entry:'₹3–6 LPA (after B.Tech)',mid:'₹10–25 LPA (3–5 years experience)',top:'₹40+ LPA (senior tech / PSU roles)'},
+  'pcb':{entry:'₹3–5 LPA (B.Sc) / ₹60,000+/mo (MBBS intern)',mid:'₹10–20 LPA (after PG or 5 years)',top:'₹1 Cr+ (specialist doctors, MBBS + PG)'},
+  'pcmb':{entry:'₹3–8 LPA (varies by path taken)',mid:'₹10–30 LPA',top:'₹50+ LPA'},
+  'commerce':{entry:'₹2.5–5 LPA',mid:'₹8–18 LPA',top:'₹50+ LPA (CA/MBA/Investment Banking)'},
+  'commerce-maths':{entry:'₹3–6 LPA',mid:'₹10–22 LPA',top:'₹1 Cr+ (CA/Investment Banking/Startup CEO)'},
+  'arts':{entry:'₹2–4 LPA',mid:'₹5–15 LPA',top:'₹1 Cr+ (IAS/top lawyer/top journalist/media personality)'},
+  'agriculture-12':{entry:'₹2.5–4 LPA',mid:'₹6–12 LPA',top:'₹20+ LPA (agri-business/agritech startup)'},
+  'btech':{entry:'₹3–7 LPA',mid:'₹10–25 LPA',top:'₹50+ LPA'},
+  'btech-cs':{entry:'₹5–12 LPA',mid:'₹15–35 LPA',top:'₹1 Cr+ (FAANG, top startups)'},
+  'bsc':{entry:'₹2.5–5 LPA',mid:'₹6–15 LPA',top:'₹30+ LPA (with specialisation/research/GATE)'},
+  'bsc-agri':{entry:'₹3–5 LPA',mid:'₹6–12 LPA',top:'₹25+ LPA (govt officer/agritech)'},
+  'bcom':{entry:'₹2.5–4 LPA',mid:'₹6–14 LPA',top:'₹50+ LPA (CA/MBA/banking senior roles)'},
+  'bba':{entry:'₹2.5–5 LPA',mid:'₹8–18 LPA',top:'₹40+ LPA (MBA/startup founder)'},
+  'ba':{entry:'₹2–4 LPA',mid:'₹5–15 LPA',top:'₹1 Cr+ (IAS / top lawyer / journalist)'},
+  'bca':{entry:'₹3–5 LPA',mid:'₹8–18 LPA',top:'₹35+ LPA (with GATE/product companies)'},
+  'mbbs':{entry:'₹60,000–90,000/mo',mid:'₹1.5–3L/mo',top:'₹5–10L+/mo (specialist doctors / consultants)'},
+  'llb':{entry:'₹2.5–5 LPA',mid:'₹10–25 LPA',top:'₹1 Cr+ (SC / High Court lawyers, Big Law)'},
+  'ca':{entry:'₹5–8 LPA',mid:'₹12–30 LPA',top:'₹1 Cr+ (Big 4 partner / own firm)'},
+  'mba':{entry:'₹6–10 LPA (tier-2) / ₹20–25 LPA (IIM)',mid:'₹20–50 LPA',top:'₹1 Cr+ (CXO / senior partner)'},
+  'mtech':{entry:'₹6–12 LPA',mid:'₹12–28 LPA',top:'₹50+ LPA (IIT mtech → top startups/MNCs)'},
+  'mca':{entry:'₹4–8 LPA',mid:'₹10–22 LPA',top:'₹40+ LPA'},
+  'iti':{entry:'₹15,000–25,000/mo',mid:'₹35,000–60,000/mo',top:'₹1L+/mo (self-employed or govt)'},
+  'polytechnic':{entry:'₹18,000–28,000/mo',mid:'₹40,000–70,000/mo',top:'₹1.5L+/mo (industry + experience)'},
+  'phd':{entry:'₹35,000–50,000/mo (postdoc / JRF)',mid:'₹80,000–1.5L/mo (associate professor)',top:'₹3L+/mo (full professor / R&D director)'},
+  'default':{entry:'₹2–5 LPA',mid:'₹8–18 LPA',top:'₹30+ LPA (with skills + experience)'},
+};
+
+/* ── MATCHING ENGINE ─────────────────────────────────────── */
+function matchCareers(level,interests,goal){
+  return CAREERS.map(c=>{
+    let score=0;
+    if(c.match.includes(level)) score+=30;
+    const intMatch=interests.filter(i=>c.interests.includes(i)).length;
+    score+=intMatch*20;
+    if(goal && c.type.includes(goal)) score+=15;
+    if(intMatch>=2) score+=10;
+    return{...c,score};
+  }).filter(c=>c.score>0).sort((a,b)=>b.score-a.score).slice(0,5);
+}
+
+/* ── SECTION BUILDERS ────────────────────────────────────── */
+function sec1(level,interests){
+  const skills=EXISTING[level]||EXISTING['default'];
+  let h='<p>Based on your stream and education level, here are skills you already have:</p><ul>';
+  skills.forEach(s=>h+=`<li><strong>${s}</strong></li>`);
+  h+='</ul>';
+  if(interests.includes('coding')) h+='<p>Your interest in <strong>Coding & Technology</strong> means you are drawn to logical thinking and building — a critical advantage in today\'s job market.</p>';
+  if(interests.includes('finance')) h+='<p>Your interest in <strong>Finance</strong> signals numerical aptitude and analytical thinking, highly valued across business, banking and consulting.</p>';
+  if(interests.includes('healthcare')) h+='<p>Interest in <strong>Healthcare</strong> combined with your education background creates a strong foundation for a meaningful and well-paying career.</p>';
+  return h;
+}
+
+function sec2(interests){
+  let skills=[];
+  interests.forEach(i=>{if(LEARN[i])skills=skills.concat(LEARN[i].slice(0,2));});
+  skills=[...new Set(skills)].slice(0,6);
+  if(skills.length<3)skills=skills.concat(LEARN['default'].slice(0,3-skills.length));
+  let h='<p>These are the highest-value skills to learn next, matched to your interests — with free resources where possible:</p><ul>';
+  skills.forEach(s=>{const p=s.split(' — ');h+=`<li><strong>${p[0]}</strong>${p[1]?' — <em>'+p[1]+'</em>':''}</li>`;});
+  h+='</ul><p>💡 <strong>Rule of thumb:</strong> Learn one skill deeply before moving to the next. Build one real project as proof of each skill learned.</p>';
+  return h;
+}
+
+function sec3(careers,level){
+  const exams=EXAMS[level]||EXAMS['default'];
+  let h='';
+  if(!careers.length){h='<p>Please select at least one interest for personalised career matches.</p>';}
+  else{
+    careers.forEach((c,i)=>{
+      h+=`<h4>${i+1}. ${c.emoji} ${c.title}</h4>`;
+      h+=`<p>${c.desc}</p><ul>`;
+      h+=`<li><strong>Key Exam / Entry Route:</strong> ${c.exam}</li>`;
+      h+=`<li><strong>Starting Salary:</strong> <span class="inr">${c.salaryStart}</span> &nbsp; <strong>Mid-Career:</strong> <span class="inr">${c.salaryMid}</span></li>`;
+      h+=`<li><strong>Growth Outlook:</strong> ${c.growth}</li></ul>`;
+    });
+  }
+  h+=`<h4>📝 Key Entrance Exams / Next Steps for Your Level</h4><ul>`;
+  exams.forEach(e=>h+=`<li>${e}</li>`);
+  h+='</ul>';
+  return h;
+}
+
+function sec4(goal,careers){
+  const steps=ROADMAPS[goal]||ROADMAPS['default'];
+  let h='<p>Your personalised step-by-step action plan:</p><ol>';
+  steps.forEach((s,i)=>h+=`<li><strong>Step ${i+1}:</strong> ${s}</li>`);
+  h+='</ol>';
+  if(careers.length){
+    h+='<h4>🎯 Immediate Actions — Do These This Month</h4><ul>';
+    careers.slice(0,3).forEach(c=>{h+=`<li><strong>${c.emoji} ${c.title}:</strong> Start with — ${c.exam.split('·')[0].trim()}</li>`;});
+    h+='</ul>';
+  }
+  h+='<p>📌 <strong>Most important mindset:</strong> Consistency beats intensity. 2 focused hours daily for 365 days = 730 hours = expert level in any field.</p>';
+  return h;
+}
+
+function sec5(level,careers){
+  const sal=SALARY[level]||SALARY['default'];
+  let h='';
+  if(sal.note){return`<p>${sal.note}</p>`;}
+  h+='<h4>💰 Salary Trajectory for Your Education Level</h4><ul>';
+  h+=`<li><strong>Entry Level (0–2 years):</strong> <span class="inr">${sal.entry}</span></li>`;
+  h+=`<li><strong>Mid Career (3–7 years):</strong> <span class="inr">${sal.mid}</span></li>`;
+  h+=`<li><strong>Senior Level (8+ years):</strong> <span class="inr">${sal.top}</span></li></ul>`;
+  if(careers.length){
+    h+='<h4>📊 Salary by Career Path</h4>';
+    careers.slice(0,4).forEach(c=>{
+      h+=`<p><strong>${c.emoji} ${c.title}:</strong> Start <span class="inr">${c.salaryStart}</span> → Mid <span class="inr">${c.salaryMid}</span> → Top <span class="inr">${c.salaryTop}</span> &nbsp; ${c.growth}</p>`;
+    });
+  }
+  h+='<h4>📈 Fastest Ways to Increase Your Salary in India</h4><ul>';
+  h+='<li><strong>High-demand skills:</strong> ML/AI, Cloud, Data, Finance certifications can add ₹2–5 LPA overnight</li>';
+  h+='<li><strong>Switch jobs every 2–3 years</strong> early in career — market rate beats internal appraisals always</li>';
+  h+='<li><strong>Metro city advantage:</strong> Mumbai, Bangalore, Delhi, Hyderabad, Pune pay 30–80% more for same role</li>';
+  h+='<li><strong>Postgraduate degree:</strong> MBA/M.Tech often doubles salary — especially from a top 25 college</li></ul>';
+  return h;
+}
+
+/* ── EMOJI & LABEL HELPERS ─────────────────────────────── */
+function getEmoji(l){
+  if(!l)return'🎓';
+  if(l.includes('pcm')||l.includes('btech'))return'⚙️';
+  if(l.includes('pcb')||l.includes('mbbs'))return'🧬';
+  if(l.includes('pcmb'))return'🔬';
+  if(l.includes('commerce')||l.includes('mba')||l.includes('bcom')||l.includes('ca'))return'💼';
+  if(l.includes('arts')||l.includes('ba')||l.includes('ma'))return'📜';
+  if(l.includes('agri'))return'🌾';
+  if(l.includes('bdes')||l.includes('bfa'))return'🎨';
+  if(l.includes('llb')||l.includes('law'))return'⚖️';
+  if(l.includes('bca')||l.includes('mca')||l.includes('cs'))return'💻';
+  if(l.includes('iti'))return'🔧';
+  if(l.includes('polytechnic')||l.includes('diploma'))return'📐';
+  if(l.includes('nursing'))return'💉';
+  if(l.includes('bhm'))return'🏨';
+  if(l.includes('bjmc'))return'📰';
+  if(l.includes('phd'))return'🏅';
+  return'🎓';
+}
+
+const LLABELS={'8th':'8th Class','10th-studying':'9th/10th Class','10th-pass':'10th Pass','pcm':'11th/12th PCM','pcb':'11th/12th PCB','pcmb':'11th/12th PCMB','commerce-maths':'12th Commerce (Maths)','commerce':'12th Commerce','arts':'12th Arts/Humanities','agriculture-12':'12th Agriculture','home-science':'12th Home Science','vocational':'12th Vocational','12th-pass':'12th Pass','iti':'ITI Certificate','polytechnic':'Polytechnic Diploma','dpharma':'D.Pharma','dca':'DCA/PGDCA','deled':'D.El.Ed/D.Ed','nursing-diploma':'ANM/GNM Nursing','other-diploma':'Diploma','btech':'B.Tech/B.E.','bsc':'B.Sc Science','bsc-agri':'B.Sc Agriculture','bsc-nursing':'B.Sc Nursing','mbbs':'MBBS','bds':'BDS','bams':'BAMS/BHMS','bpharm':'B.Pharm','bvsc':'BVSc','bcom':'B.Com','bba':'BBA/BBM','ca':'CA (ICAI)','ba':'B.A.','bca':'BCA','btech-cs':'B.Tech CS/IT','barch':'B.Arch','bdes':'B.Des/NID/NIFT','bped':'BPEd','bed':'B.Ed','llb':'LLB/BA LLB','bhm':'BHM Hotel','bjmc':'B.J./BMM','bfa':'BFA Fine Arts','bsw':'BSW','mtech':'M.Tech/M.E.','msc':'M.Sc','msc-agri':'M.Sc Agriculture','mba':'MBA/PGDM','mcom':'M.Com','ma':'M.A.','mca':'MCA','mtech-cs':'M.Tech CS','md-ms':'MD/MS Medical','llm':'LLM','med':'M.Ed','mdes':'M.Des','mfa':'MFA','phd':'PhD/Doctorate'};
+const ILABELS={'coding':'💻 Coding & Tech','design':'🎨 Design','business':'💼 Business','science':'🔬 Science','healthcare':'🏥 Healthcare','teaching':'📚 Teaching','agriculture':'🌾 Agriculture','law':'⚖️ Law','finance':'📊 Finance','sports':'🏅 Sports','media':'✍️ Media','arts':'🎵 Arts','govt':'🏛️ Govt/UPSC','defence':'🪖 Defence','social':'🤝 Social Work','hotel':'🏨 Hotel'};
+const GLABELS={'govt':'🏛️ Sarkari Naukri','private':'🏢 Private/Corporate','startup':'🚀 Startup/Business','freelance':'💻 Freelance','higher-india':'📖 Higher Studies India','abroad':'✈️ Abroad'};
+
+const LOAD_MSGS=['// analysing your board & stream...','// matching Indian career pathways...','// finding relevant entrance exams (JEE, NEET, CAT, UPSC...)...','// calculating INR salary ranges...','// building your personalised roadmap...','// building detailed career roadmaps...','// finalising your report...'];
+
+/* ── DETAILED CAREER ROADMAPS ────────────────────────────────
+   Each entry: phases[], resources[], totalTime                 */
+const CAREER_ROADMAPS = {
+  'software-dev': {
+    totalTime:'12–24 months to first job',
+    phases:[
+      {label:'Phase 1',color:'saffron',title:'Programming Foundations',duration:'0–3 months',
+       items:['Learn any one language deeply — Python (easiest) or Java (most campus-used) or JavaScript','Understand variables, loops, conditions, functions, arrays, objects','Practice 50+ small problems on HackerRank / CodeChef'],
+       chips:['Python','Java','JavaScript','Logic Building']},
+      {label:'Phase 2',color:'green',title:'Data Structures & Algorithms',duration:'3–6 months',
+       items:['Arrays, Linked Lists, Stacks, Queues, Trees, Graphs, Hashing','Sorting & Searching algorithms (must know by heart)','Solve 150+ problems on LeetCode — focus on Easy → Medium'],
+       chips:['DSA','LeetCode','Problem Solving','Time Complexity']},
+      {label:'Phase 3',color:'navy',title:'Build Real Projects',duration:'6–9 months',
+       items:['Learn HTML, CSS, JavaScript for frontend OR Flask/Django/Spring Boot for backend','Build 3–5 complete projects: e.g. Todo App → Blog → E-Commerce clone','Push all projects to GitHub — recruiters check GitHub profiles'],
+       chips:['GitHub','React','Node.js','REST APIs','SQL/MongoDB']},
+      {label:'Phase 4',color:'chakra',title:'System Design & Interview Prep',duration:'9–12 months',
+       items:['Learn basics of databases, OS, networking, DBMS (asked in all interviews)','Study system design: load balancers, caching, microservices (for senior roles)','Mock interviews on Pramp, InterviewBit — practice until smooth'],
+       chips:['System Design','DBMS','OS Concepts','Mock Interviews']},
+      {label:'Phase 5',color:'gold',title:'Apply & Land the Job',duration:'12–18 months',
+       items:['Apply to 50–100 companies via LinkedIn, Naukri, company portals','Target product companies (Google, Flipkart, Razorpay) + service companies (TCS, Infosys) both','Negotiate salary — knowing your market rate is critical in India'],
+       chips:['Resume','LinkedIn','Job Portals','Salary Negotiation']},
+    ],
+    resources:['freeCodeCamp (free)','The Odin Project (free)','CS50 Harvard (free)','NPTEL DSA (free)','LeetCode (freemium)','Striver DSA Sheet (free)'],
+  },
+  'data-scientist': {
+    totalTime:'12–18 months to entry-level role',
+    phases:[
+      {label:'Phase 1',color:'saffron',title:'Python & Mathematics Foundation',duration:'0–3 months',
+       items:['Python programming — variables, loops, functions, OOP','Mathematics: Linear Algebra, Statistics, Probability (essential for ML)','NumPy and Pandas for data manipulation'],
+       chips:['Python','NumPy','Pandas','Statistics','Linear Algebra']},
+      {label:'Phase 2',color:'green',title:'Data Analysis & Visualisation',duration:'3–5 months',
+       items:['Exploratory Data Analysis (EDA) on real datasets from Kaggle','Data visualisation using Matplotlib, Seaborn, Plotly','SQL for querying databases — crucial for data science roles'],
+       chips:['Matplotlib','Seaborn','SQL','Tableau','Power BI']},
+      {label:'Phase 3',color:'navy',title:'Machine Learning',duration:'5–9 months',
+       items:['Supervised learning: Linear Regression, Decision Trees, Random Forest, SVM','Unsupervised: K-Means Clustering, PCA','Model evaluation, cross-validation, hyperparameter tuning with scikit-learn'],
+       chips:['scikit-learn','ML Algorithms','Feature Engineering','Model Evaluation']},
+      {label:'Phase 4',color:'chakra',title:'Deep Learning & Specialisation',duration:'9–12 months',
+       items:['Neural networks, CNNs for images, RNNs/LSTMs for sequences','TensorFlow or PyTorch — pick one and master it','Specialise in one area: NLP, Computer Vision, or Time Series Forecasting'],
+       chips:['TensorFlow','PyTorch','NLP','Computer Vision','Deep Learning']},
+      {label:'Phase 5',color:'gold',title:'Portfolio & Job Search',duration:'12–18 months',
+       items:['Build 3–5 end-to-end ML projects and host on GitHub','Write articles on Medium / Kaggle notebooks to demonstrate expertise','Target analytics companies, product companies (Swiggy, Zepto), and consulting firms'],
+       chips:['Kaggle','GitHub','Portfolio','ML Projects']},
+    ],
+    resources:['Andrew Ng ML Course — Coursera (free audit)','fast.ai (free)','Kaggle Learn (free)','StatQuest YouTube (free)','Krish Naik YouTube (free)','NPTEL ML (free)'],
+  },
+  'cybersecurity': {
+    totalTime:'12–24 months to entry-level role',
+    phases:[
+      {label:'Phase 1',color:'saffron',title:'Networking & OS Fundamentals',duration:'0–3 months',
+       items:['Networking: TCP/IP, DNS, HTTP/S, Firewalls, VPNs, Subnetting','Operating Systems: Linux command line (must), Windows Server basics','Understand how the internet works end-to-end'],
+       chips:['Linux','TCP/IP','Networking','Wireshark','Windows Server']},
+      {label:'Phase 2',color:'green',title:'Security Fundamentals',duration:'3–6 months',
+       items:['OWASP Top 10 vulnerabilities — SQL injection, XSS, CSRF, etc.','Learn cryptography basics: symmetric, asymmetric, hashing, TLS','Security frameworks: NIST, ISO 27001 awareness'],
+       chips:['OWASP Top 10','Cryptography','NIST','Security Frameworks','TLS/SSL']},
+      {label:'Phase 3',color:'navy',title:'Ethical Hacking & Penetration Testing',duration:'6–10 months',
+       items:['Set up a home lab with Kali Linux and VirtualBox','Practice on TryHackMe (beginner) then HackTheBox (intermediate)','Learn tools: Nmap, Metasploit, Burp Suite, Nikto, Hydra'],
+       chips:['Kali Linux','Metasploit','Burp Suite','TryHackMe','HackTheBox']},
+      {label:'Phase 4',color:'chakra',title:'Certifications & Specialisation',duration:'10–18 months',
+       items:['CompTIA Security+ — entry level, widely accepted','CEH (Certified Ethical Hacker) — very valued in India, DRDO/MNCs','OSCP for penetration testing specialisation (advanced)'],
+       chips:['CompTIA Security+','CEH','OSCP','eJPT','CISSP (advanced)']},
+      {label:'Phase 5',color:'gold',title:'Job Search',duration:'18–24 months',
+       items:['Target: IT companies, BFSI sector (banks), Defence (DRDO, CERT-In), MNCs','Bug bounty programs — HackerOne, Bugcrowd for income while job-hunting','Build a blog/portfolio documenting your CTF write-ups and findings'],
+       chips:['Bug Bounty','CTF','Security Portfolio','CERT-In','DRDO']},
+    ],
+    resources:['TryHackMe (freemium)','HackTheBox (freemium)','Professor Messer Security+ (free)','NetworkChuck YouTube (free)','TCM Security courses (paid — worth it)'],
+  },
+  'web-dev': {
+    totalTime:'6–12 months to freelance/first job',
+    phases:[
+      {label:'Phase 1',color:'saffron',title:'HTML, CSS & Responsive Design',duration:'0–2 months',
+       items:['HTML5 semantic elements, forms, accessibility basics','CSS Flexbox and Grid — master both, they are the backbone of layouts','Make websites fully responsive for mobile using media queries'],
+       chips:['HTML5','CSS3','Flexbox','CSS Grid','Responsive Design']},
+      {label:'Phase 2',color:'green',title:'JavaScript & Interactivity',duration:'2–5 months',
+       items:['JavaScript ES6+ — let/const, arrow functions, promises, async/await','DOM manipulation — making pages dynamic and interactive','Fetch API for calling backend APIs, handling JSON data'],
+       chips:['JavaScript ES6+','DOM','Fetch API','JSON','LocalStorage']},
+      {label:'Phase 3',color:'navy',title:'React.js / Frontend Framework',duration:'5–8 months',
+       items:['React components, props, state management with hooks','React Router for navigation, Context API for global state','Build and deploy 3 React projects to Vercel/Netlify (free hosting)'],
+       chips:['React','Hooks','React Router','Context API','Vite']},
+      {label:'Phase 4',color:'chakra',title:'Backend & Databases (Optional but Powerful)',duration:'8–11 months',
+       items:['Node.js + Express for building REST APIs','MongoDB (NoSQL) or PostgreSQL (SQL) for data storage','Authentication with JWT, sessions — critical for real apps'],
+       chips:['Node.js','Express','MongoDB','PostgreSQL','JWT','REST APIs']},
+      {label:'Phase 5',color:'gold',title:'Portfolio, Freelance & Jobs',duration:'10–14 months',
+       items:['Build 5+ portfolio projects with live URLs — clients want to see live work','Register on Upwork, Fiverr, LinkedIn as a web developer','Reach out directly to local businesses — most don\'t have websites yet'],
+       chips:['Portfolio','Upwork','Fiverr','GitHub','Vercel','Netlify']},
+    ],
+    resources:['The Odin Project (free — best curriculum)','freeCodeCamp (free)','CSS Tricks (free)','JavaScript.info (free)','Traversy Media YouTube (free)','Akshay Saini YouTube (free — JS)'],
+  },
+  'ca': {
+    totalTime:'3–5 years (Foundation to Final)',
+    phases:[
+      {label:'Phase 1',color:'saffron',title:'CA Foundation',duration:'4–8 months',
+       items:['Paper 1: Principles & Practice of Accounting','Paper 2: Business Laws & Business Correspondence','Paper 3: Business Mathematics, LR & Statistics','Paper 4: Business Economics & Business Commercial Knowledge','Register with ICAI, get study material, attend coaching or self-study'],
+       chips:['Accounting','Business Law','Mathematics','Economics','ICAI']},
+      {label:'Phase 2',color:'green',title:'CA Intermediate',duration:'12–18 months',
+       items:['Group 1: Accounting, Corporate & Allied Laws, Cost & Management Accounting, Taxation (GST + Income Tax)','Group 2: Advanced Accounting, Auditing, Enterprise IT & SM, Financial Management','Articleship registration — 3 years of practical training in CA firm begins'],
+       chips:['GST','Income Tax','Auditing','IFRS','Ind AS','Articleship']},
+      {label:'Phase 3',color:'navy',title:'Articleship (3 Years)',duration:'36 months concurrent',
+       items:['Work under a registered Chartered Accountant for 3 years','Gain practical experience in auditing, taxation, accounts finalization','Exposure to diverse industries — manufacturing, banking, IT, NGOs'],
+       chips:['Practical Training','Tax Returns','Audit','Tally/ERP','Client Work']},
+      {label:'Phase 4',color:'chakra',title:'CA Final',duration:'6–12 months (after/during articleship)',
+       items:['Group 1: Financial Reporting, Strategic FM & Risk Mgmt, Advanced Auditing, Corporate & Economic Laws','Group 2: Strategic Cost Mgmt, Direct Tax, Indirect Tax, Integrated Business Solutions','Case study based exam — requires deep conceptual understanding'],
+       chips:['IND AS','IFRS','Advanced Taxation','Strategic Audit','Case Studies']},
+      {label:'Phase 5',color:'gold',title:'Career Launch',duration:'After clearing Final',
+       items:['Join Big 4 (Deloitte, PwC, EY, KPMG) — highest paying option','Join industry CFO office, corporate accounts teams','Start own CA practice — high earning potential, flexible'],
+       chips:['Big 4','CFO','SEBI','RBI Grade B eligible','Own Practice']},
+    ],
+    resources:['ICAI Study Material (official — free)','ICAI Past Papers (free)','ICAI Mentoring Portal','CA Club India (free forums)','YouTube: CA Wallah by PW (free)'],
+  },
+  'banker': {
+    totalTime:'6–18 months of preparation',
+    phases:[
+      {label:'Phase 1',color:'saffron',title:'Quantitative Aptitude & Reasoning',duration:'0–3 months',
+       items:['Number series, simplification, percentage, profit/loss, time & work, speed','Logical reasoning: seating arrangement, puzzles, syllogism, blood relations','Practice 100+ questions daily — speed and accuracy both matter'],
+       chips:['Quantitative Aptitude','Logical Reasoning','Data Interpretation','Number System']},
+      {label:'Phase 2',color:'green',title:'English Language & General Awareness',duration:'2–4 months',
+       items:['Reading comprehension, cloze test, error detection, fill in the blanks','Banking & Finance current affairs — RBI policy, new schemes, budget highlights','Static GK: capitals, currencies, headquarters of banks and financial bodies'],
+       chips:['English Grammar','Reading Comprehension','Banking GK','Current Affairs','RBI Policy']},
+      {label:'Phase 3',color:'navy',title:'Computer Knowledge & Professional Knowledge',duration:'3–5 months',
+       items:['MS Office, internet basics, networking basics — asked in all bank exams','For IBPS Specialist Officers: in-depth technical knowledge of your specialisation','Banking terms: NPA, CRR, SLR, Repo Rate, MCLR — must know these cold'],
+       chips:['Computer Basics','MS Office','Banking Terms','NPA','MCLR','CRR/SLR']},
+      {label:'Phase 4',color:'chakra',title:'Mains + Interview Preparation',duration:'5–8 months',
+       items:['Mains: descriptive writing — essay and letter writing on banking/economy topics','Interview: prepare your background, banking news, and why banking as career','Practice speaking clearly in English and Hindi both'],
+       chips:['Descriptive Writing','Interview Skills','Banking Knowledge','Essay Writing']},
+      {label:'Phase 5',color:'gold',title:'Target Exams & Apply',duration:'Ongoing',
+       items:['IBPS PO Prelims → Mains → Interview (for Public Sector Bank PO)','SBI PO — most prestigious, separate exam cycle','RBI Grade B — for top performers, government bank leadership'],
+       chips:['IBPS PO','SBI PO','RBI Grade B','NABARD','SIDBI']},
+    ],
+    resources:['Adda247 App (free + paid)','BankersAdda (free)','Oliveboard (free mocks)','Testbook (free)','YouTube: IBPS Guide (free)'],
+  },
+  'ias-ips': {
+    totalTime:'1–3 years of serious preparation',
+    phases:[
+      {label:'Phase 1',color:'saffron',title:'NCERT Foundation (Class 6–12)',duration:'0–4 months',
+       items:['Read all NCERT books: History (6–12), Geography (6–12), Polity (6–12), Economics (9–12)','Build your conceptual base — UPSC tests understanding, not memory','Make short notes from NCERT as you read'],
+       chips:['NCERT History','NCERT Geography','NCERT Polity','NCERT Economics','NCERT Science']},
+      {label:'Phase 2',color:'green',title:'Standard Reference Books',duration:'4–8 months',
+       items:['History: Bipin Chandra (Modern India), Spectrum (quick revision)','Geography: G.C. Leong, NCERT Atlas','Polity: Laxmikant M. (bible of UPSC polity)','Economy: Ramesh Singh, Economic Survey'],
+       chips:['Laxmikant Polity','Bipin Chandra History','G.C. Leong Geo','Ramesh Singh Economy','Art & Culture Nitin Singhania']},
+      {label:'Phase 3',color:'navy',title:'Current Affairs & Newspaper Reading',duration:'Ongoing from Day 1',
+       items:['Read The Hindu OR Indian Express daily — minimum 1.5 hours','Follow PIB (Press Information Bureau) for government schemes','Monthly current affairs magazines: Vision IAS PT365, Insights'],
+       chips:['The Hindu','Indian Express','PIB','Vision IAS','Insights on India','ForumIAS']},
+      {label:'Phase 4',color:'chakra',title:'Optional Subject & Essay',duration:'6–12 months',
+       items:['Choose optional based on your graduation background and scoring potential','Top optionals: PSIR, History, Geography, Public Administration, Sociology','Essay: practice writing 2 essays weekly on diverse topics'],
+       chips:['Optional Subject','Essay Writing','GS Papers 1–4','Ethics GS4','Answer Writing']},
+      {label:'Phase 5',color:'gold',title:'Mock Tests, Previous Papers & Revision',duration:'Throughout',
+       items:['Solve 10 years of Prelims papers — understand the pattern deeply','Join test series for Mains answer writing — critical for clearing cutoff','Revise notes every 3 weeks — spaced repetition is key to retention'],
+       chips:['Mock Tests','Prelims PYQ','Mains Answer Writing','Revision Schedule','Interview Prep']},
+    ],
+    resources:['Vision IAS (YouTube + material)','Mrunal.org (free)','BYJU\'S IAS (paid)','Unacademy UPSC (free content)','ForumIAS (free discussion)','Vajiram & Ravi (Delhi — premium)'],
+  },
+  'doctor': {
+    totalTime:'5.5 years MBBS + 3 years PG (MD/MS)',
+    phases:[
+      {label:'Phase 1',color:'saffron',title:'Pre-Clinical Years (MBBS Year 1–2)',duration:'Years 1–2',
+       items:['Anatomy — Gray\'s Anatomy, BD Chaurasia (Indian standard)','Physiology — Ganong, AK Jain','Biochemistry — Harper, Vasudevan','Build strong foundations — these form the basis of all clinical knowledge'],
+       chips:['Anatomy','Physiology','Biochemistry','Gray\'s Anatomy','Ganong']},
+      {label:'Phase 2',color:'green',title:'Para-Clinical & Clinical Entry (Year 2–3)',duration:'Years 2–3',
+       items:['Pathology (Robbins), Microbiology (Ananthnarayan), Pharmacology (KD Tripathi)','Forensic Medicine, Community Medicine (Park\'s textbook)','Start clinical postings — learn history-taking and examination skills'],
+       chips:['Pathology','Microbiology','Pharmacology','Community Medicine','Clinical Postings']},
+      {label:'Phase 3',color:'navy',title:'Clinical Years (Year 3–5.5)',duration:'Years 3–5.5',
+       items:['Medicine (Harrison\'s, Davidson\'s), Surgery (Bailey & Love), Obstetrics & Gynaecology','Paediatrics, Ophthalmology, ENT, Orthopaedics, Psychiatry','Internship: 1 year rotating in all departments — clinical exposure'],
+       chips:['Medicine','Surgery','OBG','Paediatrics','Harrison\'s','Internship']},
+      {label:'Phase 4',color:'chakra',title:'NEET-PG Preparation',duration:'Final year + after internship',
+       items:['NEET-PG covers all MBBS subjects — 200 MCQs in 3.5 hours','Study from high-yield notes: Across, Roams, subject-specific quick books','Solve 10,000+ MCQs — pattern recognition is key'],
+       chips:['NEET-PG','AIIMS PG','INI CET','MCQ Practice','Marrow App','PrepLadder']},
+      {label:'Phase 5',color:'gold',title:'MD/MS Specialisation & Career',duration:'3 years PG',
+       items:['High-demand specialisations: Cardiology, Neurosurgery, Anaesthesia, Radiology, Dermatology','Super-specialisation (DM/MCh) for top earning potential','Private practice / hospital / academic career'],
+       chips:['MD Medicine','MS Surgery','Cardiology','Radiology','DM/MCh','Super Speciality']},
+    ],
+    resources:['Marrow App (premier NEET-PG prep)','PrepLadder (paid but excellent)','DAMS (Delhi — top coaching)','AIIMS Past Papers (free)','Geeky Medics (free)'],
+  },
+  'advocate': {
+    totalTime:'3–5 years LLB + 2 years practice to establish',
+    phases:[
+      {label:'Phase 1',color:'saffron',title:'Law School Foundations',duration:'Year 1–2 of LLB',
+       items:['Constitutional Law — most important, read it 3 times','Law of Contracts, Torts, Criminal Law (IPC, CrPC, CPC)','Legal research skills — SCC Online, Manupatra, Indian Kanoon'],
+       chips:['Constitutional Law','IPC','CrPC','CPC','Contract Act','Torts']},
+      {label:'Phase 2',color:'green',title:'Specialisation Subjects',duration:'Year 2–3 of LLB',
+       items:['Choose a specialisation: Corporate Law, Criminal Law, IPR, Family Law, Taxation','Company Law, Securities Law for corporate track','Labour & Industrial Laws, Environmental Law'],
+       chips:['Company Law','IPR','Family Law','Labour Law','Taxation Law','SEBI Law']},
+      {label:'Phase 3',color:'navy',title:'Moot Courts & Internships',duration:'Throughout Law School',
+       items:['Participate in every moot court — advocacy skills are what clients pay for','Intern at: High Court, District Court, Law Firms, NCLT, Corporate Legal Dept','Build a network of seniors and judges — referrals drive practice in India'],
+       chips:['Moot Court','Court Internship','Law Firm','Legal Drafting','Bar Council']},
+      {label:'Phase 4',color:'chakra',title:'Bar Enrollment & Junior Practice',duration:'After LLB — 0–3 years',
+       items:['Clear AIBE (All India Bar Exam) — mandatory for independent practice','Junior under a Senior Advocate — 2–3 years, low pay but invaluable learning','Appear in District Courts, NCDRC, Tribunals to build confidence'],
+       chips:['AIBE','Bar Council Enrollment','District Court','Junior Advocate','Legal Briefs']},
+      {label:'Phase 5',color:'gold',title:'Independent Practice / Corporate Career',duration:'3+ years',
+       items:['Independent criminal/civil practice — build client base through referrals','Corporate lawyer at Big Law firms (AZB, Cyril Amarchand, Khaitan) — ₹15–50+ LPA','In-house counsel at MNC/startup — steady income, 9–6 job life'],
+       chips:['High Court','Supreme Court','Big Law Firms','In-House Counsel','LPO']},
+    ],
+    resources:['Indian Kanoon (free case law)','SCC Online (paid — law libraries have access)','Bar & Bench (free news)','Lawctopus (free for law students)','LawSikho (online courses)'],
+  },
+  'mba-manager': {
+    totalTime:'2 years MBA + 5 years to senior management',
+    phases:[
+      {label:'Phase 1',color:'saffron',title:'CAT / MBA Entrance Preparation',duration:'0–12 months',
+       items:['Quantitative Aptitude: Arithmetic, Algebra, Geometry, Number System (CAT level)','Verbal Ability: Reading Comprehension, Para-jumbles, Critical Reasoning','DILR: Data Interpretation + Logical Reasoning — most differentiating section'],
+       chips:['CAT','XAT','IIFT','SNAP','GMAT (abroad)','QA','VARC','DILR']},
+      {label:'Phase 2',color:'green',title:'MBA Year 1 — Foundation',duration:'Year 1 of MBA',
+       items:['Core subjects: Financial Accounting, Marketing Management, OB, Economics, Statistics','Build your study group — peers matter more than professors at IIMs','Internship prep starts in December — companies visit campus for Summer Placements'],
+       chips:['Finance','Marketing','HR','Operations','Strategy','Case Studies']},
+      {label:'Phase 3',color:'navy',title:'MBA Year 2 — Specialisation',duration:'Year 2 of MBA',
+       items:['Choose specialisation: Finance (IB, PE, VC), Marketing, Consulting, HR, Analytics','Finance: CFA Level 1 alongside MBA greatly improves placements','Consulting: practice case interviews (McKinsey, BCG, Bain visit top IIMs)'],
+       chips:['Finance Specialisation','Marketing','Consulting','CFA Level 1','Case Interviews']},
+      {label:'Phase 4',color:'chakra',title:'First Job — Building Track Record',duration:'0–3 years post MBA',
+       items:['Excel in your first role — visibility matters in corporate India','Build cross-functional expertise — don\'t stay siloed in one function','Network actively: attend industry events, maintain LinkedIn, join alumni groups'],
+       chips:['Corporate Role','Networking','Performance Review','Promotion','LinkedIn']},
+      {label:'Phase 5',color:'gold',title:'Senior Management & Leadership',duration:'5–10 years',
+       items:['Target Manager → Senior Manager → VP → Director → CXO track','Build a personal brand — speak at events, write articles, mentor juniors','Consider entrepreneurship or PE/VC as exit options after 5–8 years'],
+       chips:['VP','Director','CXO','P&L Ownership','Leadership','Board Roles']},
+    ],
+    resources:['CATKing (free YouTube)','2IIM CAT (free + paid)','iQuanta (CAT group)','Harvard Business Review (free articles)','MBA Crystal Ball (free advice)'],
+  },
+  'marketing': {
+    totalTime:'6–12 months to first digital marketing role',
+    phases:[
+      {label:'Phase 1',color:'saffron',title:'Digital Marketing Foundations',duration:'0–2 months',
+       items:['Understand the full digital marketing ecosystem: SEO, SEM, Social, Email, Content, Analytics','Google Digital Garage — free certification, covers all basics','Build your own WordPress blog or Wix site to practice on'],
+       chips:['SEO Basics','SEM','Social Media Marketing','Email Marketing','Google Analytics']},
+      {label:'Phase 2',color:'green',title:'SEO & Content Marketing',duration:'2–4 months',
+       items:['On-page SEO: title tags, meta descriptions, keyword placement, URL structure','Off-page SEO: link building, digital PR, social signals','Content strategy: keyword research with Ubersuggest/Ahrefs free, content calendar'],
+       chips:['On-page SEO','Keyword Research','Content Strategy','Backlinks','Ubersuggest','Yoast']},
+      {label:'Phase 3',color:'navy',title:'Paid Advertising (Google & Meta Ads)',duration:'3–5 months',
+       items:['Google Ads: Search campaigns, Display, Shopping, YouTube ads — Google Skillshop free certification','Meta Ads (Facebook & Instagram): targeting, creative strategy, A/B testing','Learn to read and optimise ROAS, CPC, CTR, CPL, CPM metrics'],
+       chips:['Google Ads','Meta Ads','Google Skillshop','ROAS','A/B Testing','Meta Blueprint']},
+      {label:'Phase 4',color:'chakra',title:'Analytics & Automation',duration:'5–8 months',
+       items:['Google Analytics 4 (GA4) — understand user behaviour, conversion funnels','Marketing automation with Mailchimp, HubSpot, or Zoho CRM (free tiers)','Basic Excel/Sheets for reporting — pivot tables, vlookup, charts'],
+       chips:['GA4','HubSpot','Mailchimp','CRM','Excel','Dashboard Reporting']},
+      {label:'Phase 5',color:'gold',title:'Portfolio & Job/Freelance',duration:'8–12 months',
+       items:['Measurable portfolio: show actual results — "Grew organic traffic by 40%", "₹50K ads → ₹2L revenue"','Apply to D2C startups, e-commerce companies, digital agencies','Freelance via Fiverr, Upwork, LinkedIn — local business clients are easiest to start with'],
+       chips:['Portfolio','Fiverr','Upwork','D2C Brands','Agency','Client Reporting']},
+    ],
+    resources:['Google Skillshop (free — official)','HubSpot Academy (free certifications)','Meta Blueprint (free)','Neil Patel Blog (free)','WsCube Tech YouTube (free — Hindi/English)'],
+  },
+  'teacher': {
+    totalTime:'2–4 years to get a permanent teaching job',
+    phases:[
+      {label:'Phase 1',color:'saffron',title:'Academic Qualification',duration:'2–4 years (B.Ed/D.El.Ed)',
+       items:['Complete B.Ed (2-year program) — mandatory for TGT/PGT positions','D.El.Ed for primary school teaching (2-year diploma)','Maintain 60%+ marks — eligibility criteria for most exams'],
+       chips:['B.Ed','D.El.Ed','NCTE Approved','Two Year Program','Teaching Practice']},
+      {label:'Phase 2',color:'green',title:'CTET / TET Preparation',duration:'6–12 months',
+       items:['Child Development & Pedagogy — most important section, 30 marks in CTET','Content knowledge of your subject (Hindi, Maths, Science, Social Studies, English)','CTET Paper I for classes 1–5, Paper II for classes 6–8'],
+       chips:['CTET','State TET','Child Development','Pedagogy','NCF 2005','RTE Act']},
+      {label:'Phase 3',color:'navy',title:'Subject Mastery & Teaching Skills',duration:'Ongoing',
+       items:['Deep mastery of your subject — students ask anything in class','Lesson planning: objectives, activities, assessment, homework','Classroom management: handling diverse learners, disruptive behaviour'],
+       chips:['Lesson Plans','Bloom\'s Taxonomy','Inclusive Education','Formative Assessment','ICT in Teaching']},
+      {label:'Phase 4',color:'chakra',title:'Target Govt School Exams',duration:'Varies by state',
+       items:['KVS (Kendriya Vidyalaya Sangathan) — best pay, all-India postings, great for stability','NVS (Navodaya Vidyalaya) — residential schools, good pay, rural posting','State board teacher recruitment: UP TGT/PGT, MPTET, REET, TNTET etc.'],
+       chips:['KVS TGT/PGT','NVS','DSSSB','State TET','Army School','Navy Children School']},
+      {label:'Phase 5',color:'gold',title:'Career Growth & EdTech',duration:'5–10 years',
+       items:['Vice Principal → Principal track in private schools (faster growth)','UGC NET + PhD for college lecturer/professor career','EdTech: Unacademy, BYJU\'S, Vedantu hire subject experts — ₹5–20 LPA'],
+       chips:['Vice Principal','UGC NET','EdTech','YouTube Channel','Online Courses','CBSE Resource Person']},
+    ],
+    resources:['DIKSHA Platform (free — Govt of India)','NCERT resources (free)','KVS official study material (free)','Adda247 Teachers (free + paid)','YouTube: KVS Preparation channels (free)'],
+  },
+  'agri-officer': {
+    totalTime:'12–24 months of competitive exam preparation',
+    phases:[
+      {label:'Phase 1',color:'saffron',title:'Academic Foundation',duration:'During B.Sc/M.Sc Agriculture',
+       items:['Agronomy, Horticulture, Plant Pathology, Entomology — core subjects, revise deeply','Agricultural Economics — demand/supply, price policy, market structure','Soil Science, Soil & Water Conservation — heavily asked in all exams'],
+       chips:['Agronomy','Soil Science','Plant Pathology','Horticulture','Agricultural Economics']},
+      {label:'Phase 2',color:'green',title:'Agriculture Current Affairs & Policy',duration:'Ongoing',
+       items:['PM Kisan, PM FASAL BIMA Yojana, Soil Health Card — all major schemes','Agricultural Budget, export-import of commodities, MSP policy','ICAR, NABARD, KVK, FCI, SFAC, APEDA — organisations and their roles'],
+       chips:['PM Schemes','MSP Policy','ICAR','NABARD','FCI','Agricultural Budget']},
+      {label:'Phase 3',color:'navy',title:'State Agriculture Service Preparation',duration:'12–18 months',
+       items:['State Agriculture Officer (ADO/ADA) exams — state level, lakhs of vacancies','IBPS Agriculture Officer — bank agricultural lending specialist, good salary','Solve previous 5–10 years papers of target state agriculture department'],
+       chips:['State ADO Exam','IBPS Agriculture Officer','NABARD Grade A','ICAR JRF','State PSC Agriculture']},
+      {label:'Phase 4',color:'chakra',title:'Field Skills & Extension Work',duration:'Internship/Training',
+       items:['Learn soil testing equipment, crop diagnosis, use of fertilisers and pesticides','Extension education skills — how to communicate with farmers effectively','Digital agriculture tools — remote sensing, drones, mobile apps for farmers'],
+       chips:['Soil Testing','Crop Diagnosis','Extension Education','Drone Technology','Kisan App']},
+      {label:'Phase 5',color:'gold',title:'Career Advancement',duration:'5–10 years',
+       items:['Agriculture Officer → Senior Agriculture Officer → Deputy Director → Director','NABARD Grade A → Grade B → AGM track for finance professionals in agriculture','AgriTech entrepreneurship — government RKVY funding, VC funding from AgFunder type firms'],
+       chips:['Senior Agriculture Officer','NABARD Grade A','Research','AgriTech Startup','RKVY Funding']},
+    ],
+    resources:['ICAR e-Krishi (free)','TNAU Agritech Portal (free)','AgriNetwork (free)','IBPS Agriculture Officer Past Papers (free)','YouTube: Agriculture preparation channels (free)'],
+  },
+  'army-officer': {
+    totalTime:'1–2 years preparation to joining',
+    phases:[
+      {label:'Phase 1',color:'saffron',title:'Academic Preparation',duration:'0–6 months',
+       items:['NDA: Mathematics (NCERT 11–12), General Ability Test (English + GK + Science)','CDS: Elementary Maths, English, General Knowledge — all at graduation level','AFCAT: General Awareness, Verbal Ability, Numerical Ability, Reasoning & Military Aptitude'],
+       chips:['NDA Maths','CDS GK','AFCAT','General Ability','English Comprehension','Military Aptitude']},
+      {label:'Phase 2',color:'green',title:'Physical Fitness Training',duration:'Start immediately, ongoing',
+       items:['Running: 1.6 km in under 6 minutes (minimum), aim for 5:30','Push-ups: 40+ without stopping, Sit-ups: 40+ in 2 minutes','Chin-ups/Pull-ups: 6+ reps — build upper body strength progressively'],
+       chips:['1.6km Run','Push-ups','Pull-ups','Physical Fitness','SSB Grounds Test']},
+      {label:'Phase 3',color:'navy',title:'SSB Interview Preparation',duration:'3–6 months',
+       items:['Stage 1: Officer Intelligence Rating (OIR) + PPDT (Picture Perception & Discussion Test)','Stage 2: Psychology tests, GTO (Group Testing Officer), Personal Interview','9 Officer Like Qualities (OLQ): courage, initiative, cooperation, communication etc.'],
+       chips:['OIR Test','PPDT','GTO Tasks','Psychology Tests','Personal Interview','OLQ']},
+      {label:'Phase 4',color:'chakra',title:'Medical Fitness',duration:'Ongoing preparation',
+       items:['Eyesight: 6/6 or correctable for most entries; check specific entry requirements','Height: Army min 157 cm, Navy 157 cm, Air Force 162.5 cm for pilot','Chest expansion, no flat feet, no hearing issues — full medical at Service Selection Board'],
+       chips:['Medical Standards','Eyesight','Height','Chest','Dental','SHAPE Medical']},
+      {label:'Phase 5',color:'gold',title:'Training & Career',duration:'After selection',
+       items:['IMA Dehradun (Army), INS Zamorin (Navy), AFA Hyderabad (Air Force) — 1–1.5 years training','On commissioning: Second Lieutenant / Sub Lieutenant with salary + all allowances','Specialisation tracks: Infantry, Artillery, Engineers, Signals, EME, Army Medical Corps'],
+       chips:['IMA Dehradun','INA Ezhimala','Air Force Academy','Commissioned Officer','Promotion','Ex-Servicemen Benefits']},
+    ],
+    resources:['Major Kalshi Classes (free YouTube)','SSBCrack (free + paid)','Pathfinder NDA/CDS book','Jagran Josh Defence (free)','NDA Previous Years Papers (free)'],
+  },
+  'graphic-designer': {
+    totalTime:'8–14 months to first paying clients',
+    phases:[
+      {label:'Phase 1',color:'saffron',title:'Design Principles & Theory',duration:'0–2 months',
+       items:['Typography: font pairing, hierarchy, readability — the foundation of all design','Colour theory: colour wheel, complementary/analogous colours, psychology of colour','Composition & layout: rule of thirds, whitespace, visual flow'],
+       chips:['Typography','Colour Theory','Composition','Visual Hierarchy','Gestalt Principles']},
+      {label:'Phase 2',color:'green',title:'Master Design Tools',duration:'2–5 months',
+       items:['Figma — UI/UX design, free, industry standard for screen design — learn this first','Adobe Illustrator — vector graphics, logos, illustrations','Adobe Photoshop — photo editing, compositing, digital art'],
+       chips:['Figma','Adobe Illustrator','Adobe Photoshop','Canva','Sketch','Adobe XD']},
+      {label:'Phase 3',color:'navy',title:'Specialise in One Area',duration:'5–8 months',
+       items:['UI/UX Design: wireframing, prototyping, user flows, design systems','Brand Design: logos, brand identity, style guides for companies','Social Media Design: templates, carousels, reels covers — highest freelance demand in India'],
+       chips:['UI/UX','Brand Identity','Logo Design','Social Media Design','Motion Graphics','Print Design']},
+      {label:'Phase 4',color:'chakra',title:'Build Portfolio',duration:'6–10 months',
+       items:['Create 8–10 strong portfolio pieces — quality over quantity always','Include case studies for UI/UX: problem → process → solution → outcome','Host portfolio on Behance, Dribbble, or personal website'],
+       chips:['Behance Portfolio','Dribbble','Case Studies','Personal Website','Design System']},
+      {label:'Phase 5',color:'gold',title:'Clients & Career',duration:'10–14 months',
+       items:['Freelance: Instagram DM to small businesses, Fiverr, 99designs','In-house: Apply to startups, e-commerce companies, advertising agencies','Top designers in India work at Zomato, Swiggy, Razorpay, Dunzo type product companies'],
+       chips:['Fiverr','99designs','Startup Design Jobs','Ad Agency','UX Engineer','Product Designer']},
+    ],
+    resources:['Figma Academy (free)','DesignCourse YouTube (free)','Canva Design School (free)','Flux Academy (free + paid)','Dribbble Learning (free)','NID prep books'],
+  },
+  'journalist': {
+    totalTime:'2–3 years to establish in the field',
+    phases:[
+      {label:'Phase 1',color:'saffron',title:'Language & Writing Skills',duration:'0–6 months',
+       items:['Write daily — journal, blog, opinion pieces, news summaries','Read quality newspapers deeply: The Hindu, Indian Express — note their writing style','Learn inverted pyramid structure: most important info first'],
+       chips:['Writing Practice','Inverted Pyramid','AP Style','News Writing','Feature Writing']},
+      {label:'Phase 2',color:'green',title:'Journalism Education & Beat Knowledge',duration:'BJMC/PG Diploma',
+       items:['IIMC (Indian Institute of Mass Communication) — premier institution in India','Media law: defamation, sedition, RTI, press freedom, reporter privilege','Choose a beat: politics, business, sports, tech, environment, crime'],
+       chips:['IIMC','Press Law','RTI','Beat Reporting','Investigative Journalism','Ethics']},
+      {label:'Phase 3',color:'navy',title:'Digital Journalism & Multimedia',duration:'Ongoing',
+       items:['Basic video shooting and editing — smartphones are enough to start','Social media journalism: Twitter/X for breaking news, Instagram/YouTube for reach','Data journalism: use Excel, Datawrapper for data-driven stories'],
+       chips:['Video Journalism','Data Journalism','Social Media','Podcasting','Photo Journalism','SEO for News']},
+      {label:'Phase 4',color:'chakra',title:'Internships & Network Building',duration:'During studies + after',
+       items:['Intern at any news outlet — even small regional papers count','Build relationships with sources: police, politicians, corporate PRs, academics','Carry a press ID from your institute or freelance platform'],
+       chips:['News Internship','Source Building','Press Card','Bylines','Regional Media','Wire Agency']},
+      {label:'Phase 5',color:'gold',title:'Career Path',duration:'2–5 years',
+       items:['Reporter → Senior Reporter → Deputy Editor → Editor track in print/digital','TV journalism: production assistant → reporter → anchor at regional/national channels','Freelance: PIB empanelment, wire agencies (PTI, ANI, Reuters), foreign publications'],
+       chips:['Byline Portfolio','NDTV','TOI','HT','Regional Channels','Foreign Correspondents','PIB Empanelment']},
+    ],
+    resources:['IIMC (institute)','Mojo School of Journalism (free)','The Wire (free media)','MediaNama (free)','Scroll.in (free)','DataJournalism.com (free)'],
+  },
+  'software-dev-default': {
+    totalTime:'Based on your profile',
+    phases:[
+      {label:'Phase 1',color:'saffron',title:'Foundation & Skill Building',duration:'0–3 months',
+       items:['Identify the core technical skills required for your career path','Build foundations through structured courses and daily practice','Set up a learning environment and make it a daily habit'],
+       chips:['Online Courses','Daily Practice','Structured Learning']},
+      {label:'Phase 2',color:'green',title:'Practical Projects',duration:'3–6 months',
+       items:['Apply your learning to real, tangible projects','Build a portfolio that demonstrates your capabilities','Seek feedback and iterate continuously'],
+       chips:['Portfolio Projects','GitHub','Peer Feedback']},
+      {label:'Phase 3',color:'navy',title:'Entry Level & Growth',duration:'6–18 months',
+       items:['Apply for internships or entry-level positions','Continuously upskill through on-the-job learning','Build your professional network in your field'],
+       chips:['Internships','Entry Level Jobs','Networking','LinkedIn']},
+    ],
+    resources:['NPTEL (free)','Coursera (free audit)','YouTube (free)','Swayam (free — govt platform)'],
+  },
+};
+
+/* Build a detailed roadmap section for each matched career */
+function sec6(careers) {
+  const dotColors = ['saffron','green','navy','chakra','gold'];
+  let h = '<p>Detailed phase-by-phase roadmaps for each of your matched career paths:</p>';
+
+  careers.forEach((career, ci) => {
+    const rm = CAREER_ROADMAPS[career.id] || CAREER_ROADMAPS['software-dev-default'];
+    const isOpen = ci === 0; // First one open by default
+
+    h += `<div class="drm-career-block">`;
+    h += `<div class="drm-career-header ${isOpen?'open':''}" onclick="toggleRoadmap(this)">
+      <span class="drm-career-emoji">${career.emoji}</span>
+      <div class="drm-career-name">
+        <strong>${career.title}</strong>
+        <span>// ${rm.totalTime}</span>
+      </div>
+      <svg class="drm-chevron" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
+    </div>`;
+
+    h += `<div class="drm-career-body ${isOpen?'open':''}">`;
+    h += `<div class="drm-phases">`;
+
+    rm.phases.forEach((phase, pi) => {
+      const col = phase.color || dotColors[pi % dotColors.length];
+      const isLast = pi === rm.phases.length - 1;
+      h += `<div class="drm-phase">`;
+      h += `<div style="display:flex;flex-direction:column;align-items:center;width:32px;flex-shrink:0;margin-right:0.85rem;">
+        <div class="drm-phase-dot ${col}">${pi+1}</div>
+        ${!isLast ? '<div style="width:2px;flex:1;background:var(--border2);min-height:14px;margin-top:2px;"></div>' : ''}
+      </div>`;
+      h += `<div class="drm-phase-content">`;
+      h += `<div class="drm-phase-title">${phase.title}</div>`;
+      h += `<div class="drm-phase-dur">⏱ ${phase.duration}</div>`;
+      h += `<ul class="drm-phase-items">`;
+      phase.items.forEach(item => { h += `<li>${item}</li>`; });
+      h += `</ul>`;
+      if(phase.chips && phase.chips.length) {
+        h += `<div class="drm-skill-chips">`;
+        phase.chips.forEach((chip, idx) => {
+          const cls = idx % 3 === 1 ? 'green' : idx % 3 === 2 ? 'orange' : '';
+          h += `<span class="drm-chip ${cls}">${chip}</span>`;
+        });
+        h += `</div>`;
+      }
+      h += `</div></div>`; // close content + phase
+    });
+
+    h += `</div>`; // close drm-phases
+
+    if(rm.resources && rm.resources.length) {
+      h += `<div class="drm-resources">
+        <span class="drm-res-label">📚 RESOURCES</span>`;
+      rm.resources.forEach(r => {
+        const isFree = r.toLowerCase().includes('free');
+        h += `<span class="drm-res-chip">${r}</span>`;
+      });
+      h += `</div>`;
+    }
+
+    h += `</div></div>`; // close body + block
+  });
+
+  return h;
+}
+
+function toggleRoadmap(header) {
+  const body = header.nextElementSibling;
+  header.classList.toggle('open');
+  body.classList.toggle('open');
+}
+
+/* ── ROADMAP.SH MAPPINGS ── */
+const ROADMAPSH_MAP = {
+  /* ── Tech ── */
+  'full-stack':     {name:'Full Stack Developer',slug:'full-stack',icon:'💻',desc:'End-to-end web development: frontend, backend, databases, deployment.',tags:['HTML/CSS','JavaScript','Node.js','SQL','Git']},
+  'data-scientist': {name:'AI & Data Science',slug:'ai-data-scientist',icon:'🤖',desc:'Machine learning, data analysis, Python, and model deployment.',tags:['Python','ML','TensorFlow','SQL','Statistics']},
+  'frontend':       {name:'Frontend Developer',slug:'frontend',icon:'🌐',desc:'HTML, CSS, JavaScript, React — build beautiful, interactive UIs.',tags:['React','TypeScript','CSS','Figma','REST APIs']},
+  'cybersecurity':  {name:'Cyber Security',slug:'cyber-security',icon:'🛡️',desc:'Network security, ethical hacking, penetration testing, and defence.',tags:['Linux','Networking','Kali','OWASP','CEH']},
+  'devops':         {name:'DevOps Engineer',slug:'devops',icon:'⚙️',desc:'CI/CD pipelines, cloud infrastructure, Docker, Kubernetes.',tags:['Docker','AWS','Linux','CI/CD','Kubernetes']},
+  'backend':        {name:'Backend Developer',slug:'backend',icon:'🖥️',desc:'APIs, databases, server-side logic — Node.js, Python, Java.',tags:['Node.js','Python','SQL','REST','Microservices']},
+  'ux-design':      {name:'UX Designer',slug:'ux-design',icon:'🎨',desc:'User research, wireframing, prototyping, design systems.',tags:['Figma','User Research','Prototyping','Design Systems','Usability']},
+  'react':          {name:'React Developer',slug:'react',icon:'⚛️',desc:'Component-based UIs, state management, hooks, and modern React.',tags:['React','Redux','TypeScript','Next.js','Vite']},
+  'system-design':  {name:'System Design',slug:'system-design',icon:'🏗️',desc:'Architecture patterns, scalability, microservices, cloud design.',tags:['Architecture','Scalability','Microservices','APIs','Cloud']},
+  'python':         {name:'Python Developer',slug:'python',icon:'🐍',desc:'Python for web, automation, scripting, and data workflows.',tags:['Python','Django','Flask','APIs','Automation']},
+  'java':           {name:'Java Developer',slug:'java',icon:'☕',desc:'Enterprise Java, Spring Boot, microservices, OOP.',tags:['Java','Spring Boot','Maven','Microservices','Hibernate']},
+  'sql':            {name:'SQL & Databases',slug:'sql',icon:'🗄️',desc:'Relational databases, query optimisation, PostgreSQL, MySQL.',tags:['SQL','PostgreSQL','MySQL','Indexing','Joins']},
+  'android':        {name:'Android Developer',slug:'android',icon:'📱',desc:'Build native Android apps with Kotlin and Jetpack Compose.',tags:['Kotlin','Android SDK','Jetpack','Firebase','APIs']},
+  'prompt-eng':     {name:'Prompt Engineering',slug:'prompt-engineering',icon:'🧠',desc:'LLM prompting, RAG, chain-of-thought, AI product building.',tags:['LLMs','RAG','OpenAI API','LangChain','Agents']},
+  /* ── Business / Marketing ── */
+  'digital-mktg':   {name:'Digital Marketing',slug:'digital-marketing',icon:'📣',desc:'SEO, social ads, content strategy, analytics, growth hacking.',tags:['SEO','Google Ads','Analytics','Content','Social Media']},
+  'product-mgr':    {name:'Product Manager',slug:'product-manager',icon:'📦',desc:'Discovery, roadmapping, metrics, stakeholder management.',tags:['Roadmapping','User Research','Metrics','Agile','PRDs']},
+  /* ── Engineering / Science ── */
+  'computer-sci':   {name:'Computer Science',slug:'computer-science',icon:'🔬',desc:'Algorithms, data structures, OS, networks — CS fundamentals.',tags:['Algorithms','Data Structures','OS','Networking','Math']},
+  'blockchain':     {name:'Blockchain Developer',slug:'blockchain',icon:'⛓️',desc:'Smart contracts, DeFi, Web3, Solidity, Ethereum.',tags:['Solidity','Ethereum','Web3.js','DeFi','Smart Contracts']},
+  'game-dev':       {name:'Game Developer',slug:'game-developer',icon:'🎮',desc:'Game mechanics, Unity/Unreal, physics, graphics programming.',tags:['Unity','C#','Unreal','Game Physics','3D Modelling']},
+  'mlops':          {name:'MLOps Engineer',slug:'mlops',icon:'🔧',desc:'Deploy and manage ML models at scale in production.',tags:['Docker','Kubernetes','MLflow','AWS SageMaker','CI/CD']},
+};
+
+/* Map every career ID → relevant roadmap.sh slugs */
+const CAREER_TO_ROADMAPSH = {
+  'software-dev':    ['full-stack','backend','system-design'],
+  'data-scientist':  ['data-scientist','python','sql'],
+  'web-dev':         ['frontend','react','ux-design'],
+  'cybersecurity':   ['cybersecurity','devops','system-design'],
+  'psu-engineer':    ['system-design','devops','computer-sci'],
+  'elec-eng':        ['devops','system-design','computer-sci'],
+  'mech-eng':        ['python','system-design'],
+  'civil-eng':       ['python','sql'],
+  'ca':              ['sql','digital-mktg','prompt-eng'],
+  'banker':          ['sql','digital-mktg','prompt-eng'],
+  'investment':      ['data-scientist','sql','python'],
+  'mba-manager':     ['product-mgr','digital-mktg','system-design'],
+  'marketing':       ['digital-mktg','product-mgr','prompt-eng'],
+  'journalist':      ['digital-mktg','prompt-eng','ux-design'],
+  'graphic-designer':['ux-design','frontend','digital-mktg'],
+  'filmmaker':       ['digital-mktg','ux-design','prompt-eng'],
+  'edtech':          ['product-mgr','digital-mktg','full-stack'],
+  'teacher':         ['digital-mktg','prompt-eng','product-mgr'],
+  'professor':       ['data-scientist','python','prompt-eng'],
+  'doctor':          ['data-scientist','prompt-eng','python'],
+  'pharmacist':      ['data-scientist','python','prompt-eng'],
+  'nurse':           ['prompt-eng','digital-mktg'],
+  'ayurveda':        ['digital-mktg','prompt-eng'],
+  'advocate':        ['digital-mktg','prompt-eng','product-mgr'],
+  'architect':       ['ux-design','frontend','system-design'],
+  'ias-ips':         ['digital-mktg','data-scientist','prompt-eng'],
+  'ssc':             ['digital-mktg','sql','prompt-eng'],
+  'railway':         ['python','sql','devops'],
+  'social-worker':   ['digital-mktg','prompt-eng'],
+  'agri-officer':    ['data-scientist','python','sql'],
+  'agri-startup':    ['product-mgr','digital-mktg','full-stack'],
+  'hotel-mgmt':      ['digital-mktg','product-mgr','ux-design'],
+  'sports-coach':    ['digital-mktg','product-mgr'],
+  'technician':      ['devops','python','sql'],
+  'ms-abroad':       ['computer-sci','data-scientist','system-design'],
+  'judiciary':       ['digital-mktg','prompt-eng'],
+  'army-officer':    ['system-design','cybersecurity'],
+  'paramilitary':    ['cybersecurity','system-design'],
+};
+
+const INTEREST_TO_ROADMAPSH = {
+  'coding':      ['full-stack','backend','python'],
+  'design':      ['ux-design','frontend','react'],
+  'science':     ['data-scientist','sql','python'],
+  'business':    ['digital-mktg','product-mgr','system-design'],
+  'finance':     ['sql','data-scientist','python'],
+  'media':       ['digital-mktg','prompt-eng','ux-design'],
+  'healthcare':  ['data-scientist','python','prompt-eng'],
+  'law':         ['digital-mktg','prompt-eng'],
+  'govt':        ['data-scientist','sql','digital-mktg'],
+  'defence':     ['cybersecurity','system-design'],
+  'agriculture': ['data-scientist','python','sql'],
+  'social':      ['digital-mktg','prompt-eng'],
+};
+
+function sec7(careers, interests) {
+  // Collect slugs from matched careers first
+  const slugSet = new Set();
+  const slugSource = {}; // track why each slug was added
+  careers.slice(0,4).forEach(c => {
+    (CAREER_TO_ROADMAPSH[c.id] || []).forEach(s => {
+      slugSet.add(s);
+      if(!slugSource[s]) slugSource[s] = c.title;
+    });
+  });
+  // Supplement with interest-based if needed
+  if(slugSet.size < 3 && interests) {
+    interests.forEach(int => {
+      (INTEREST_TO_ROADMAPSH[int] || []).forEach(s => {
+        slugSet.add(s);
+        if(!slugSource[s]) slugSource[s] = int + ' interest';
+      });
+    });
+  }
+  // Last resort fallback
+  if(slugSet.size === 0) ['full-stack','data-scientist','digital-mktg'].forEach(s => slugSet.add(s));
+
+  const slugs = [...slugSet].filter(s => ROADMAPSH_MAP[s]).slice(0,6);
+
+  let h = `<div class="rms-wrap">`;
+  h += `<div class="rms-header">
+    <div class="rms-header-left">
+      <div class="rms-logo-icon">🗺️</div>
+      <div>
+        <div class="rms-brand">roadmap.sh — Detailed Skill Roadmaps</div>
+        <div class="rms-brand-sub">// community-driven · visual learning paths · free forever · used by 1M+ developers</div>
+      </div>
+    </div>
+    <a class="rms-visit-btn" href="https://roadmap.sh" target="_blank" rel="noopener">Visit roadmap.sh ↗</a>
+  </div>`;
+  h += `<div class="rms-tagline">community-driven <span>·</span> visual learning paths <span>·</span> free forever <span>·</span> used by 1M+ developers</div>`;
+  h += `<div class="rms-intro">These roadmaps are <strong>matched to your career results above</strong>. Click any card to open the full interactive roadmap on roadmap.sh — every skill, in order, with resources.</div>`;
+  h += `<div class="rms-cards">`;
+
+  slugs.forEach(slug => {
+    const rm = ROADMAPSH_MAP[slug];
+    if(!rm) return;
+    const url = `https://roadmap.sh/${rm.slug}`;
+    const why = slugSource[slug] ? `<div style="font-family:'Source Code Pro',monospace;font-size:0.55rem;color:rgba(14,165,233,0.55);margin-bottom:0.45rem;letter-spacing:0.04em;">↳ matched for: ${slugSource[slug]}</div>` : '';
+    h += `<a class="rms-card" href="${url}" target="_blank" rel="noopener">
+      <div class="rms-card-top">
+        <div class="rms-card-icon">${rm.icon}</div>
+        <div>
+          <div class="rms-card-name">${rm.name}</div>
+          <div class="rms-card-type">// skill roadmap</div>
+        </div>
+      </div>
+      ${why}
+      <div class="rms-card-desc">${rm.desc}</div>
+      <div>${rm.tags.map(t=>`<span class="rms-card-tag">${t}</span>`).join('')}</div>
+      <div class="rms-card-footer">
+        <span class="rms-open-link">Open full roadmap →</span>
+        <span class="rms-ext-icon">↗</span>
+      </div>
+    </a>`;
+  });
+
+  h += `</div>`;
+  h += `<div class="rms-tip">💡 <strong>Tip:</strong> Bookmark your most relevant roadmap and check off skills as you learn them. roadmap.sh lets you track progress when logged in.</div>`;
+  h += `</div>`;
+  return h;
+}
+
+const SECTION_META=[
+  {icon:'🧠',cls:'saffron-bg',title:'आपके पास पहले से क्या कौशल हैं',sub:'skills you already have from your stream'},
+  {icon:'🚀',cls:'green-bg',title:'अब कौन से कौशल सीखें',sub:'high-value skills to learn next'},
+  {icon:'🗺️',cls:'navy-bg',title:'आपके लिए करियर विकल्प',sub:'best career options matched to your profile'},
+  {icon:'📍',cls:'chakra-bg',title:'कदम-दर-कदम रोडमैप',sub:'your personalised step-by-step career roadmap'},
+  {icon:'💰',cls:'gold-bg',title:'वेतन और विकास',sub:'salary in ₹ & growth outlook in india'},
+  {icon:'🗺️',cls:'saffron-bg',title:'विस्तृत करियर रोडमैप — Detailed Career Roadmaps',sub:'phase-by-phase skill roadmap for each matched career'},
+  {icon:'🗺️',cls:'chakra-bg',title:'Roadmap.sh — विस्तृत तकनीकी रोडमैप',sub:'detailed skill roadmaps powered by roadmap.sh'},
+];
+
+/* ── MAIN FUNCTION ──────────────────────────────────────── */
+function generate(){
+  const level=document.getElementById('edu-level').value;
+  const board=document.getElementById('board').value;
+  const spec=document.getElementById('specialisation').value.trim();
+  const interests=getInterests();
+
+  if(!level){alert('कृपया अपना शिक्षा स्तर चुनें। (Please select your education level.)');return;}
+  if(!interests.length){alert('कृपया कम से कम एक रुचि चुनें। (Please select at least one interest.)');return;}
+
+  document.getElementById('form-section').style.display='none';
+  document.getElementById('loading').style.display='block';
+  document.getElementById('results').style.display='none';
+  document.getElementById('error-area').innerHTML='';
+  document.getElementById('result-sections').innerHTML='';
+
+  let mi=0;
+  const ls=document.getElementById('load-step');
+  const iv=setInterval(()=>{mi=(mi+1)%LOAD_MSGS.length;ls.textContent=LOAD_MSGS[mi];},500);
+
+  setTimeout(()=>{
+    clearInterval(iv);
+    document.getElementById('loading').style.display='none';
+    document.getElementById('results').style.display='block';
+
+    const careers=matchCareers(level,interests,selectedGoal);
+    const emoji=getEmoji(level);
+    const lvLabel=LLABELS[level]||level;
+    const iChips=interests.map(i=>`<span class="p-chip">${ILABELS[i]||i}</span>`).join('');
+    const gChip=selectedGoal?`<span class="p-chip" style="background:rgba(249,115,22,0.2);color:#fed7aa;border-color:rgba(249,115,22,0.3)">${GLABELS[selectedGoal]||selectedGoal}</span>`:'';
+    const bChip=board?`<span class="p-chip">📋 ${board}</span>`:'';
+
+    document.getElementById('profile-strip').innerHTML=`
+      <div class="p-avatar">${emoji}</div>
+      <div class="p-info">
+        <div class="p-name">${lvLabel}${spec?' — '+spec:''}</div>
+        <div class="p-chips">${bChip}${iChips}${gChip}</div>
+      </div>
+      <button class="p-back" onclick="resetForm()">← नया खोज / New Search</button>`;
+
+    const sections=[sec1(level,interests),sec2(interests),sec3(careers,level),sec4(selectedGoal,careers),sec5(level,careers),sec6(careers),sec7(careers,interests)];
+    const container=document.getElementById('result-sections');
+
+    SECTION_META.forEach((m,i)=>{
+      const div=document.createElement('div');
+      div.className='rc';
+      div.style.cssText='opacity:0;transform:translateY(14px);transition:opacity .4s ease,transform .4s ease;';
+      div.innerHTML=`<div class="rc-head"><div class="rc-icon ${m.cls}">${m.icon}</div><div><div class="rc-title">${m.title}</div><div class="rc-sub">// ${m.sub}</div></div></div><div class="rc-body">${sections[i]}</div>`;
+      container.appendChild(div);
+      setTimeout(()=>{div.style.opacity='1';div.style.transform='translateY(0)';},i*160+80);
+    });
+
+    window.scrollTo({top:0,behavior:'smooth'});
+  },2500);
+}
+
+function resetForm(){
+  document.getElementById('results').style.display='none';
+  document.getElementById('form-section').style.display='block';
+  document.querySelectorAll('.int-item input').forEach(e=>e.checked=false);
+  document.querySelectorAll('.goal-btn').forEach(b=>b.classList.remove('selected'));
+  selectedGoal='';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
